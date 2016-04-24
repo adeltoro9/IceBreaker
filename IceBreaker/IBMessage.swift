@@ -43,6 +43,8 @@ class IBMessage: NSObject, NSCoding
         self.message = message
         self.timeStamp = timeStamp
         self.lifeTime = lifeTime
+        
+        super.init()
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -70,6 +72,8 @@ class IBMessage: NSObject, NSCoding
         self.message = aDecoder.decodeObjectForKey("message") as! String
         self.timeStamp = aDecoder.decodeObjectForKey("timeStamp") as! NSDate
         self.lifeTime = aDecoder.decodeObjectForKey("lifeTime") as! Int
+        
+        super.init()
     }
     
     func encodeWithCoder(aCoder: NSCoder)

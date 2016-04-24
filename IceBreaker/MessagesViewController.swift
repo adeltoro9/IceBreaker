@@ -11,10 +11,6 @@ import MultipeerConnectivity
 
 class MessagesViewController: UIViewController, UITextFieldDelegate
 {
-    // Service type must be a unique string, at most 15 characters long
-    // and can contain only ASCII lowercase letters, numbers and hyphens.
-    private let IceBreakerServiceType = "icebreaker-chat"
-    
     @IBOutlet weak var txvwMessages: UITextView!
     
     @IBOutlet weak var txfldMessageInput: UITextField!
@@ -62,8 +58,21 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
     override func viewDidAppear(animated: Bool)
     {
         super.viewDidAppear(true)
+        
         ibsm = IceBreakerServiceManager(connectToPeersAutomatically: true)
         ibsm.delegate = self
+        
+        // Keyboard stuff.
+        if (!bIsSimulator)
+        {
+            let center: NSNotificationCenter = NSNotificationCenter.defaultCenter()
+            center.addObserver(self, selector: #selector(MessagesViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+            center.addObserver(self, selector: #selector(MessagesViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        }
+        else
+        {
+            print("Simulator detected.")
+        }
     }
     
     override func viewDidDisappear(animated: Bool)
@@ -203,7 +212,7 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
     {
         if let message = txfldMessageInput.text
         {
-            if !ibsm.sendMessage(message)
+            if !ibsm.sendMessage(IBMessage(sender: myPeerID, recipient: nil, subject: nil, message: message, timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME), bPrintMessageToScreen: true)
             {
                 printMessageToScreen(ibsm, strMessage: "Error could not send message")
             }

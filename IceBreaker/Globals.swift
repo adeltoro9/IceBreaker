@@ -9,6 +9,14 @@
 import MultipeerConnectivity
 import UIKit
 
+// Service type must be a unique string, at most 15 characters long
+// and can contain only ASCII lowercase letters, numbers and hyphens.
+let IceBreakerServiceType = "icebreaker-chat"
+
+let DEFAULT_LIFETIME = 10
+
+let myPeerID = MCPeerID(displayName: UIDevice.currentDevice().name)
+
 var bIsSimulator: Bool =
 {
    return (TARGET_OS_SIMULATOR == 1)

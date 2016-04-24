@@ -12,11 +12,7 @@ import NotificationCenter
 
 class IceBreakerServiceManager: NSObject
 {
-    // Service type must be a unique string, at most 15 characters long
-    // and can contain only ASCII lowercase letters, numbers and hyphens.
-    private let IceBreakerServiceType = "icebreaker-chat"
-    
-    private let myPeerID = MCPeerID(displayName: UIDevice.currentDevice().name)
+
     private let serviceAdvertiser : MCNearbyServiceAdvertiser
     private let serviceBrowser : MCNearbyServiceBrowser
     private let mySession : MCSession
@@ -25,37 +21,11 @@ class IceBreakerServiceManager: NSObject
     
     var delegate : IceBreakerServiceManagerDelegate?
     
-    /*
-    override init()
-    {
-        serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerID, discoveryInfo: nil, serviceType: IceBreakerServiceType)
-        serviceBrowser = MCNearbyServiceBrowser(peer: myPeerID, serviceType: IceBreakerServiceType)
-        mySession = MCSession(peer: self.myPeerID, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.Required)
-        
-        bConnectToPeersAutomatically = false
-        
-        super.init()
-        
-        mySession.delegate = self
-        
-        serviceAdvertiser.delegate = self
-        serviceAdvertiser.startAdvertisingPeer()
-        PrintMessageToScreen("Started advertising...")
-        
-        if (bConnectToPeersAutomatically)
-        {
-            serviceBrowser.delegate = self
-            serviceBrowser.startBrowsingForPeers()
-            PrintMessageToScreen("Started browsing...")
-        }
-    }
-    */
-    
     init(connectToPeersAutomatically: Bool)
     {
         serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerID, discoveryInfo: nil, serviceType: IceBreakerServiceType)
         serviceBrowser = MCNearbyServiceBrowser(peer: myPeerID, serviceType: IceBreakerServiceType)
-        mySession = MCSession(peer: self.myPeerID, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.Required)
+        mySession = MCSession(peer: myPeerID, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.Required)
         
         bConnectToPeersAutomatically = connectToPeersAutomatically
         
@@ -99,7 +69,7 @@ class IceBreakerServiceManager: NSObject
         return self.serviceBrowser
     }()
     
-    func sendMessage(strMessage: String) -> Bool
+    func sendMessage(ibmessage: IBMessage, bPrintMessageToScreen: Bool) -> Bool
     {
         var bSuccess: Bool = true
         
@@ -107,8 +77,9 @@ class IceBreakerServiceManager: NSObject
         {
             do
             {
-                try self.session.sendData(strMessage.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable)
-                self.delegate?.printMessageToScreen(self, strMessage: "\(myPeerID.displayName): " + strMessage)
+                //try self.session.sendData(strMessage.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable)
+                    let messageData = NSKeyedArchiver.archivedDataWithRootObject(ibmessage)
+                try self.session.sendData(messageData, toPeers: session.connectedPeers, withMode: .Reliable)
             }
             catch
             {
@@ -118,6 +89,11 @@ class IceBreakerServiceManager: NSObject
         else
         {
             bSuccess = false
+        }
+        
+        if (bPrintMessageToScreen)
+        {
+            self.delegate?.printMessageToScreen(self, strMessage: "\(ibmessage.sender.displayName): " + ibmessage.message)
         }
         
         return bSuccess
@@ -313,9 +289,15 @@ extension IceBreakerServiceManager: MCSessionDelegate
          The peer ID of the sender.
         */
         
-        var strNewMessage = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
-        strNewMessage = "\(peerID.displayName): " + strNewMessage
-        self.delegate?.printMessageToScreen(self, strMessage: strNewMessage)
+        //var strNewMessage = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
+        
+        if let ibmessage = (NSKeyedUnarchiver.unarchiveObjectWithData(data) as? IBMessage)
+        {
+            let strNewMessage = "\(ibmessage.sender.displayName): " + ibmessage.message
+            self.delegate?.printMessageToScreen(self, strMessage: strNewMessage)
+        }
+        
+        
     }
     
     func session(session: MCSession, didReceiveStream stream: NSInputStream, withName streamName: String, fromPeer peerID: MCPeerID)
