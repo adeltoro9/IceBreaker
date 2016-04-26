@@ -17,6 +17,7 @@ class IBMessage: NSObject, NSCoding
     let message: String
     let timeStamp: NSDate
     let lifeTime: Int
+    let uniqueID: NSUUID
     
     init(sender: MCPeerID, recipient: MCPeerID?, subject: String?, message: String, timeStamp: NSDate, lifeTime: Int)
     {
@@ -43,6 +44,9 @@ class IBMessage: NSObject, NSCoding
         self.message = message
         self.timeStamp = timeStamp
         self.lifeTime = lifeTime
+        
+        self.uniqueID = NSUUID()
+        print(uniqueID)
         
         super.init()
     }
@@ -72,6 +76,8 @@ class IBMessage: NSObject, NSCoding
         self.message = aDecoder.decodeObjectForKey("message") as! String
         self.timeStamp = aDecoder.decodeObjectForKey("timeStamp") as! NSDate
         self.lifeTime = aDecoder.decodeObjectForKey("lifeTime") as! Int
+        self.uniqueID = aDecoder.decodeObjectForKey("uniqueID") as! NSUUID
+        print(uniqueID)
         
         super.init()
     }
@@ -84,6 +90,7 @@ class IBMessage: NSObject, NSCoding
         aCoder.encodeObject(self.message, forKey: "message")
         aCoder.encodeObject(self.timeStamp, forKey: "timeStamp")
         aCoder.encodeObject(self.lifeTime, forKey: "lifeTime")
+        aCoder.encodeObject(self.uniqueID, forKey: "uniqueID")
     }
 }
 
