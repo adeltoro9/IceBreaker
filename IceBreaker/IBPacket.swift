@@ -9,17 +9,28 @@
 import Foundation
 import MultipeerConnectivity
 
-class IBMessage: NSObject, NSCoding
+enum IBPacketType : Int
+{
+    case Private = 0
+    case PingQuery = 1
+    case PingResponse = 2
+    case Politics = 3
+    case Sports = 4
+    case MUEvents = 5
+    case UserData = 6
+}
+
+class IBPacket: NSObject, NSCoding
 {
     let sender: MCPeerID
     let recipient: MCPeerID?    // nil if message is intended for a chat room
-    let subject: String?        // nil if private message between 2 users
+    let type: IBPacketType      // nil if private message between 2 users
     let message: String
     let timeStamp: NSDate
     let lifeTime: Int
     let uniqueID: NSUUID
     
-    init(sender: MCPeerID, recipient: MCPeerID?, subject: String?, message: String, timeStamp: NSDate, lifeTime: Int)
+    init(sender: MCPeerID, recipient: MCPeerID?, type: IBPacketType, message: String, timeStamp: NSDate, lifeTime: Int)
     {
         self.sender = sender
         
@@ -32,15 +43,7 @@ class IBMessage: NSObject, NSCoding
             self.recipient = nil
         }
         
-        if let subj = subject
-        {
-            self.subject = subj
-        }
-        else
-        {
-            self.subject = nil
-        }
-        
+        self.type = type
         self.message = message
         self.timeStamp = timeStamp
         self.lifeTime = lifeTime
@@ -64,15 +67,8 @@ class IBMessage: NSObject, NSCoding
             self.recipient = nil
         }
         
-        if let subj = (aDecoder.decodeObjectForKey("subject") as? String)
-        {
-            self.subject = subj
-        }
-        else
-        {
-            self.subject = nil
-        }
-        
+        let rawValue: Int = (aDecoder.decodeObjectForKey("type") as! Int)
+        self.type = IBPacketType(rawValue: rawValue)!
         self.message = aDecoder.decodeObjectForKey("message") as! String
         self.timeStamp = aDecoder.decodeObjectForKey("timeStamp") as! NSDate
         self.lifeTime = aDecoder.decodeObjectForKey("lifeTime") as! Int
@@ -86,7 +82,7 @@ class IBMessage: NSObject, NSCoding
     {
         aCoder.encodeObject(self.sender, forKey: "sender")
         aCoder.encodeObject(self.recipient, forKey: "recipient")
-        aCoder.encodeObject(self.subject, forKey: "subject")
+        aCoder.encodeObject(self.type.rawValue, forKey: "type")
         aCoder.encodeObject(self.message, forKey: "message")
         aCoder.encodeObject(self.timeStamp, forKey: "timeStamp")
         aCoder.encodeObject(self.lifeTime, forKey: "lifeTime")

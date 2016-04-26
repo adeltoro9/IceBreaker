@@ -212,7 +212,7 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
     {
         if let message = txfldMessageInput.text
         {
-            if !ibsm.sendMessage(IBMessage(sender: myPeerID, recipient: nil, subject: nil, message: message, timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME), bPrintMessageToScreen: true)
+            if !ibsm.sendPacket(IBPacket(sender: myPeerID, recipient: nil, type: IBPacketType.Sports, message: message, timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME), bPrintMessageToScreen: true)
             {
                 printMessageToScreen(ibsm, strMessage: "Error could not send message")
             }

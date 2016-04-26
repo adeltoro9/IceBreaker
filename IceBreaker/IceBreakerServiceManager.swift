@@ -69,7 +69,7 @@ class IceBreakerServiceManager: NSObject
         return self.serviceBrowser
     }()
     
-    func sendMessage(ibmessage: IBMessage, bPrintMessageToScreen: Bool) -> Bool
+    func sendPacket(ibPacket: IBPacket, bPrintMessageToScreen: Bool) -> Bool
     {
         var bSuccess: Bool = true
         
@@ -78,8 +78,8 @@ class IceBreakerServiceManager: NSObject
             do
             {
                 //try self.session.sendData(strMessage.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable)
-                    let messageData = NSKeyedArchiver.archivedDataWithRootObject(ibmessage)
-                try self.session.sendData(messageData, toPeers: session.connectedPeers, withMode: .Reliable)
+                    let packetData = NSKeyedArchiver.archivedDataWithRootObject(ibPacket)
+                try self.session.sendData(packetData, toPeers: session.connectedPeers, withMode: .Reliable)
             }
             catch
             {
@@ -93,7 +93,7 @@ class IceBreakerServiceManager: NSObject
         
         if (bPrintMessageToScreen)
         {
-            self.delegate?.printMessageToScreen(self, strMessage: "\(ibmessage.sender.displayName): " + ibmessage.message)
+            self.delegate?.printMessageToScreen(self, strMessage: "\(ibPacket.sender.displayName): " + ibPacket.message)
         }
         
         return bSuccess
@@ -291,12 +291,11 @@ extension IceBreakerServiceManager: MCSessionDelegate
         
         //var strNewMessage = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
         
-        if let ibmessage = (NSKeyedUnarchiver.unarchiveObjectWithData(data) as? IBMessage)
+        if let ibPacket = (NSKeyedUnarchiver.unarchiveObjectWithData(data) as? IBPacket)
         {
-            let strNewMessage = "\(ibmessage.sender.displayName): " + ibmessage.message
+            let strNewMessage = "\(ibPacket.sender.displayName): " + ibPacket.message
             self.delegate?.printMessageToScreen(self, strMessage: strNewMessage)
         }
-        
         
     }
     
