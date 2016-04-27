@@ -15,6 +15,7 @@
 		9210304F1CC5AB2D007F1BD9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9210304D1CC5AB2D007F1BD9 /* LaunchScreen.storyboard */; };
 		9210305A1CC5AB2D007F1BD9 /* IceBreakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921030591CC5AB2D007F1BD9 /* IceBreakerTests.swift */; };
 		921030651CC5AB2D007F1BD9 /* IceBreakerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921030641CC5AB2D007F1BD9 /* IceBreakerUITests.swift */; };
+		92593F9E1CD107FC006C20BD /* IBConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92593F9D1CD107FC006C20BD /* IBConversation.swift */; };
 		92E02B9A1CCC753700EBACE5 /* IBPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E02B991CCC753700EBACE5 /* IBPacket.swift */; };
 		92FB8C491CC7333200FD4894 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FB8C481CC7333200FD4894 /* MessagesViewController.swift */; };
 		92FB8C4B1CC7333D00FD4894 /* IceBreakerServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FB8C4A1CC7333D00FD4894 /* IceBreakerServiceManager.swift */; };
@@ -53,6 +54,7 @@
 		921030601CC5AB2D007F1BD9 /* IceBreakerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IceBreakerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		921030641CC5AB2D007F1BD9 /* IceBreakerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IceBreakerUITests.swift; sourceTree = "<group>"; };
 		921030661CC5AB2D007F1BD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92593F9D1CD107FC006C20BD /* IBConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBConversation.swift; sourceTree = "<group>"; };
 		92E02B991CCC753700EBACE5 /* IBPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBPacket.swift; sourceTree = "<group>"; };
 		92FB8C481CC7333200FD4894 /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		92FB8C4A1CC7333D00FD4894 /* IceBreakerServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IceBreakerServiceManager.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				92FB8C4A1CC7333D00FD4894 /* IceBreakerServiceManager.swift */,
 				92E02B991CCC753700EBACE5 /* IBPacket.swift */,
 				92FB8C481CC7333200FD4894 /* MessagesViewController.swift */,
+				92593F9D1CD107FC006C20BD /* IBConversation.swift */,
 				921030451CC5AB2D007F1BD9 /* Main.storyboard */,
 				9210304B1CC5AB2D007F1BD9 /* Assets.xcassets */,
 				9210304D1CC5AB2D007F1BD9 /* LaunchScreen.storyboard */,
@@ -276,6 +279,7 @@
 				921030441CC5AB2D007F1BD9 /* ViewController.swift in Sources */,
 				92FB8C4D1CC7337900FD4894 /* Globals.swift in Sources */,
 				92FB8C491CC7333200FD4894 /* MessagesViewController.swift in Sources */,
+				92593F9E1CD107FC006C20BD /* IBConversation.swift in Sources */,
 				92FB8C4B1CC7333D00FD4894 /* IceBreakerServiceManager.swift in Sources */,
 				921030421CC5AB2D007F1BD9 /* AppDelegate.swift in Sources */,
 			);

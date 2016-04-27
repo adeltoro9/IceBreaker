@@ -15,8 +15,6 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
     
     @IBOutlet weak var txfldMessageInput: UITextField!
     
-    var ibsm: IceBreakerServiceManager!
-    
     //var frameView: UIView!
     
     var originalTextViewFrame: CGRect!
@@ -33,7 +31,8 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
     {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
+        ibsm.delegate = self
+        
         originalTextViewFrame = txvwMessages.frame
         
         print("X: \(self.txvwMessages.frame.origin.x)\nY: \(self.txvwMessages.frame.origin.y)\nWidth :\(self.txvwMessages.frame.size.width)\nHeight :\(self.txvwMessages.frame.size.height)")
@@ -59,9 +58,8 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
     {
         super.viewDidAppear(true)
         
-        ibsm = IceBreakerServiceManager(connectToPeersAutomatically: true)
         ibsm.delegate = self
-        
+
         // Keyboard stuff.
         if (!bIsSimulator)
         {
@@ -78,7 +76,6 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
     override func viewDidDisappear(animated: Bool)
     {
         ibsm.delegate = nil
-        ibsm = nil
         
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
@@ -210,6 +207,11 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
     
     @IBAction func btnSendMessage_TouchUpInside(sender: AnyObject)
     {
+        if (ibsm.delegate == nil)
+        {
+            ibsm.delegate = self
+        }
+        
         if let message = txfldMessageInput.text
         {
             if !ibsm.sendPacket(IBPacket(sender: myPeerID, recipient: nil, type: IBPacketType.Sports, message: message, timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME), bPrintMessageToScreen: true)

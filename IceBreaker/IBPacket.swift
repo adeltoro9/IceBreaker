@@ -24,7 +24,7 @@ class IBPacket: NSObject, NSCoding
 {
     let sender: MCPeerID
     let recipient: MCPeerID?    // nil if message is intended for a chat room
-    let type: IBPacketType      // nil if private message between 2 users
+    let type: IBPacketType
     let message: String
     let timeStamp: NSDate
     let lifeTime: Int

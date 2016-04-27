@@ -13,9 +13,44 @@ import UIKit
 // and can contain only ASCII lowercase letters, numbers and hyphens.
 let IceBreakerServiceType = "icebreaker-chat"
 
+var ibsm: IceBreakerServiceManager!
+
 let DEFAULT_LIFETIME = 10
 
-let myPeerID = MCPeerID(displayName: UIDevice.currentDevice().name)
+var myPeerID: MCPeerID
+{
+    get
+    {
+        return _peerID
+    }
+    
+    set
+    {
+        _peerID = newValue
+    }
+}
+
+private var _peerID = MCPeerID(displayName: UIDevice.currentDevice().name)
+
+var _messagesScreen: IceBreakerServiceManagerDelegate! = nil
+
+var MessagesScreen: IceBreakerServiceManagerDelegate?
+{
+    get
+    {
+        if let msgScreen = _messagesScreen
+        {
+            return msgScreen
+        }
+        
+        return nil
+    }
+
+    set
+    {
+        _messagesScreen = newValue
+    }
+}
 
 var bIsSimulator: Bool =
 {
