@@ -38,18 +38,26 @@ var MessagesScreen: IceBreakerServiceManagerDelegate?
 {
     get
     {
-        if let msgScreen = _messagesScreen
+        if let nvc = ((UIApplication.sharedApplication().windows[0].rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController)
         {
-            return msgScreen
+            for vc in nvc.viewControllers
+            {
+                if let ibsmd = ((vc as? MessagesViewController) as? IceBreakerServiceManagerDelegate)
+                {
+                    return ibsmd
+                }
+            }
         }
         
         return nil
     }
 
+    /*
     set
     {
         _messagesScreen = newValue
     }
+    */
 }
 
 var bIsSimulator: Bool =

@@ -31,7 +31,11 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
     {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        ibsm.delegate = self
+        //
+        if (ibsm.delegate == nil)
+        {
+            ibsm.delegate = self
+        }
         
         originalTextViewFrame = txvwMessages.frame
         
@@ -58,7 +62,7 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
     {
         super.viewDidAppear(true)
         
-        ibsm.delegate = self
+        //ibsm.delegate = self
 
         // Keyboard stuff.
         if (!bIsSimulator)
@@ -75,7 +79,7 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
     
     override func viewDidDisappear(animated: Bool)
     {
-        ibsm.delegate = nil
+        //ibsm.delegate = nil
         
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
@@ -207,10 +211,12 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
     
     @IBAction func btnSendMessage_TouchUpInside(sender: AnyObject)
     {
+        /*
         if (ibsm.delegate == nil)
         {
             ibsm.delegate = self
         }
+        */
         
         if let message = txfldMessageInput.text
         {

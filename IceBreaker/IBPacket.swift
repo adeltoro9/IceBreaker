@@ -47,9 +47,7 @@ class IBPacket: NSObject, NSCoding
         self.message = message
         self.timeStamp = timeStamp
         self.lifeTime = lifeTime
-        
         self.uniqueID = NSUUID()
-        print(uniqueID)
         
         super.init()
     }
@@ -73,7 +71,6 @@ class IBPacket: NSObject, NSCoding
         self.timeStamp = aDecoder.decodeObjectForKey("timeStamp") as! NSDate
         self.lifeTime = aDecoder.decodeObjectForKey("lifeTime") as! Int
         self.uniqueID = aDecoder.decodeObjectForKey("uniqueID") as! NSUUID
-        print(uniqueID)
         
         super.init()
     }
