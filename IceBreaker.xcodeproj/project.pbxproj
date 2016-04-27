@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		921030421CC5AB2D007F1BD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921030411CC5AB2D007F1BD9 /* AppDelegate.swift */; };
-		921030441CC5AB2D007F1BD9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921030431CC5AB2D007F1BD9 /* ViewController.swift */; };
+		921030441CC5AB2D007F1BD9 /* PublicBoardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921030431CC5AB2D007F1BD9 /* PublicBoardsViewController.swift */; };
 		921030471CC5AB2D007F1BD9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 921030451CC5AB2D007F1BD9 /* Main.storyboard */; };
 		9210304A1CC5AB2D007F1BD9 /* IceBreaker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 921030481CC5AB2D007F1BD9 /* IceBreaker.xcdatamodeld */; };
 		9210304C1CC5AB2D007F1BD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9210304B1CC5AB2D007F1BD9 /* Assets.xcassets */; };
@@ -42,7 +42,7 @@
 /* Begin PBXFileReference section */
 		9210303E1CC5AB2D007F1BD9 /* IceBreaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IceBreaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		921030411CC5AB2D007F1BD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		921030431CC5AB2D007F1BD9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		921030431CC5AB2D007F1BD9 /* PublicBoardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicBoardsViewController.swift; sourceTree = "<group>"; };
 		921030461CC5AB2D007F1BD9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		921030491CC5AB2D007F1BD9 /* IceBreaker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IceBreaker.xcdatamodel; sourceTree = "<group>"; };
 		9210304B1CC5AB2D007F1BD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -111,7 +111,7 @@
 			children = (
 				921030411CC5AB2D007F1BD9 /* AppDelegate.swift */,
 				92FB8C4C1CC7337900FD4894 /* Globals.swift */,
-				921030431CC5AB2D007F1BD9 /* ViewController.swift */,
+				921030431CC5AB2D007F1BD9 /* PublicBoardsViewController.swift */,
 				92FB8C4A1CC7333D00FD4894 /* IceBreakerServiceManager.swift */,
 				92E02B991CCC753700EBACE5 /* IBPacket.swift */,
 				92FB8C481CC7333200FD4894 /* MessagesViewController.swift */,
@@ -276,7 +276,7 @@
 			files = (
 				92E02B9A1CCC753700EBACE5 /* IBPacket.swift in Sources */,
 				9210304A1CC5AB2D007F1BD9 /* IceBreaker.xcdatamodeld in Sources */,
-				921030441CC5AB2D007F1BD9 /* ViewController.swift in Sources */,
+				921030441CC5AB2D007F1BD9 /* PublicBoardsViewController.swift in Sources */,
 				92FB8C4D1CC7337900FD4894 /* Globals.swift in Sources */,
 				92FB8C491CC7333200FD4894 /* MessagesViewController.swift in Sources */,
 				92593F9E1CD107FC006C20BD /* IBConversation.swift in Sources */,

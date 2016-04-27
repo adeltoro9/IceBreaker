@@ -12,7 +12,11 @@ import NotificationCenter
 
 class IceBreakerServiceManager: NSObject
 {
-
+    var recentPackets: [IBPacket] = [IBPacket]()
+    
+    var publicConversations: [IBPacketType : IBConversation]! = [IBPacketType : IBConversation]()
+    var privateConversations: [MCPeerID : IBConversation]! = [MCPeerID : IBConversation]()
+    
     private let serviceAdvertiser : MCNearbyServiceAdvertiser
     private let serviceBrowser : MCNearbyServiceBrowser
     private let mySession : MCSession
@@ -69,6 +73,8 @@ class IceBreakerServiceManager: NSObject
         return self.serviceBrowser
     }()
     
+    
+//# MARK: Packet Processing Methods
     func sendPacket(ibPacket: IBPacket, bPrintMessageToScreen: Bool) -> Bool
     {
         var bSuccess: Bool = true
@@ -77,7 +83,6 @@ class IceBreakerServiceManager: NSObject
         {
             do
             {
-                //try self.session.sendData(strMessage.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable)
                     let packetData = NSKeyedArchiver.archivedDataWithRootObject(ibPacket)
                 try self.session.sendData(packetData, toPeers: session.connectedPeers, withMode: .Reliable)
             }
@@ -98,6 +103,105 @@ class IceBreakerServiceManager: NSObject
         
         return bSuccess
     }
+    
+    func processPacket(ibp: IBPacket)
+    {
+        var bForwardMessage: Bool = true
+        
+        switch ibp.type
+        {
+        case .Private:
+            if (ibp.recipient == myPeerID)
+            {
+                // private message is for me!
+                bForwardMessage = false
+                printPacket(ibp)
+            }
+        case .PingQuery:
+            if (ibp.recipient == myPeerID)
+            {
+                bForwardMessage = false
+                sendPacket(IBPacket(sender: myPeerID, recipient: ibp.sender, type: IBPacketType.PingResponse, message: "I'm here!", timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME), bPrintMessageToScreen: false)
+            }
+        case .PingResponse:
+            if (ibp.recipient == myPeerID)
+            {
+                self.delegate?.printMessageToScreen(self, strMessage: "Ping response from \(ibp.sender.displayName)")
+            }
+        case .Politics:
+            processPublicMessage(ibp, type: .Politics)
+        case .Sports:
+            processPublicMessage(ibp, type: .Sports)
+        case .MUEvents:
+            processPublicMessage(ibp, type: .MUEvents)
+        default:
+            let avc = UIAlertController(title: "Unknown Packet Type", message: "A packet was received from \(ibp.sender.displayName) that could not be processed.", preferredStyle: .Alert)
+            let dismiss = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
+            avc.addAction(dismiss)
+            UIApplication.topViewController()!.presentViewController(avc, animated: true, completion: nil)
+        }
+        
+        if (bForwardMessage)
+        {
+            if(!forwardPacket(ibp))
+            {
+                let avc = UIAlertController(title: "Could not forward packet", message: "A packet \(ibp.uniqueID) that was received from \(ibp.sender.displayName) could not be forwarded.", preferredStyle: .Alert)
+                let dismiss = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
+                avc.addAction(dismiss)
+                UIApplication.topViewController()!.presentViewController(avc, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func forwardPacket(ibp: IBPacket) -> Bool
+    {
+        var recipients = session.connectedPeers
+        
+        if (recipients.contains(ibp.sender))
+        {
+            recipients.removeAtIndex(recipients.indexOf(ibp.sender)!)
+        }
+        
+        var bSuccess: Bool = true
+        
+        if recipients.count > 0
+        {
+            do
+            {
+                let packetData = NSKeyedArchiver.archivedDataWithRootObject(ibp)
+                try self.session.sendData(packetData, toPeers: recipients, withMode: .Reliable)
+            }
+            catch
+            {
+                bSuccess = false
+            }
+        }
+        
+        return bSuccess
+    }
+    
+    func processPublicMessage(ibp: IBPacket, type: IBPacketType)
+    {
+        if let conv = publicConversations[type]
+        {
+            conv.addNewMessage(ibp)
+            
+            if let mvc = (self.delegate as? MessagesViewController)
+            {
+                if (mvc.Conversation.topic == ibp.type)
+                {
+                    printPacket(ibp)
+                }
+            }
+        }
+    }
+    
+    func printPacket(ibp: IBPacket)
+    {
+        let strNewMessage = "\(ibp.sender.displayName): " + ibp.message
+        self.delegate?.printMessageToScreen(self, strMessage: strNewMessage)
+    }
+
 }
 
 //# MARK: IceBreakerServiceManagerDelegate Protocol
@@ -291,10 +395,9 @@ extension IceBreakerServiceManager: MCSessionDelegate
         
         //var strNewMessage = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
         
-        if let ibPacket = (NSKeyedUnarchiver.unarchiveObjectWithData(data) as? IBPacket)
+        if let ibp = (NSKeyedUnarchiver.unarchiveObjectWithData(data) as? IBPacket)
         {
-            let strNewMessage = "\(ibPacket.sender.displayName): " + ibPacket.message
-            self.delegate?.printMessageToScreen(self, strMessage: strNewMessage)
+            processPacket(ibp)
         }
         
     }

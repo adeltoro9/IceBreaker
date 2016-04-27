@@ -108,13 +108,13 @@
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="black" keyboardDismissMode="interactive" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0al-W9-6Tq">
                                 <rect key="frame" x="40" y="84" width="520" height="387"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" keyboardType="alphabet" keyboardAppearance="alert"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="sO4-IV-DfU" firstAttribute="top" secondItem="0al-W9-6Tq" secondAttribute="bottom" constant="20" id="9vT-vi-BJF"/>
@@ -137,25 +137,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dzp-ga-hPl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2011" y="281"/>
+            <point key="canvasLocation" x="1795" y="-547"/>
         </scene>
         <!--Public Boards-->
         <scene sceneID="J55-GJ-dUe">
             <objects>
-                <tableViewController id="epf-eu-mrQ" sceneMemberID="viewController">
+                <tableViewController id="epf-eu-mrQ" customClass="PublicBoardsViewController" customModule="IceBreaker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Qzn-S2-pjQ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="RpK-A8-XIK" style="IBUITableViewCellStyleDefault" id="yQa-XD-KV6">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UITableViewCell" textLabel="RpK-A8-XIK" style="IBUITableViewCellStyleDefault" id="yQa-XD-KV6">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yQa-XD-KV6" id="utK-da-3x7">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Sports" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RpK-A8-XIK">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Politics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RpK-A8-XIK">
                                             <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -164,18 +164,15 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="UpQ-UC-8Sl" kind="show" id="RNm-0U-IOb"/>
-                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="men-oH-QrF" style="IBUITableViewCellStyleDefault" id="1Zd-of-atE">
-                                <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="136" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1Zd-of-atE" id="HCA-WH-sT4">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Trump Trending" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="men-oH-QrF">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Sports" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="men-oH-QrF">
                                             <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -186,7 +183,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="55g-6d-SXt" style="IBUITableViewCellStyleDefault" id="DUo-Rg-ply">
-                                <rect key="frame" x="0.0" y="116" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="180" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DUo-Rg-ply" id="9HA-ll-IrZ">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -209,6 +206,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Public Boards" id="uV5-q6-tTs"/>
+                    <connections>
+                        <segue destination="UpQ-UC-8Sl" kind="show" identifier="showMessageScreen" id="DVb-ZR-NvF"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PPG-Vo-vGQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -307,8 +307,13 @@
                         <color key="barTintColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="view.backgroundColor">
+                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
-                        <segue destination="UpQ-UC-8Sl" kind="relationship" relationship="rootViewController" id="Dhg-Xj-Fhj"/>
+                        <segue destination="epf-eu-mrQ" kind="relationship" relationship="rootViewController" id="24b-Ha-PzN"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBX-mX-g9d" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -364,6 +369,6 @@
         <image name="profileTrump" width="400" height="400"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Dhg-Xj-Fhj"/>
+        <segue reference="DVb-ZR-NvF"/>
     </inferredMetricsTieBreakers>
 </document>

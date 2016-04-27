@@ -11,6 +11,25 @@ import MultipeerConnectivity
 
 class MessagesViewController: UIViewController, UITextFieldDelegate
 {
+    private var ibc: IBConversation!
+    
+    var Conversation: IBConversation!
+        {
+        get
+        {
+            if let conv = ibc
+            {
+                return conv
+            }
+            
+            return nil
+        }
+        set
+        {
+            ibc = newValue
+        }
+    }
+    
     @IBOutlet weak var txvwMessages: UITextView!
     
     @IBOutlet weak var txfldMessageInput: UITextField!
@@ -37,6 +56,8 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
             ibsm.delegate = self
         }
         
+        print("\(self.Conversation.topic)")
+        
         originalTextViewFrame = txvwMessages.frame
         
         print("X: \(self.txvwMessages.frame.origin.x)\nY: \(self.txvwMessages.frame.origin.y)\nWidth :\(self.txvwMessages.frame.size.width)\nHeight :\(self.txvwMessages.frame.size.height)")
@@ -61,9 +82,12 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
     override func viewDidAppear(animated: Bool)
     {
         super.viewDidAppear(true)
-        
-        //ibsm.delegate = self
 
+        if (ibsm.delegate == nil)
+        {
+            ibsm.delegate = self
+        }
+        
         // Keyboard stuff.
         if (!bIsSimulator)
         {
@@ -79,7 +103,7 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
     
     override func viewDidDisappear(animated: Bool)
     {
-        //ibsm.delegate = nil
+        ibsm.delegate = nil
         
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
@@ -211,16 +235,9 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
     
     @IBAction func btnSendMessage_TouchUpInside(sender: AnyObject)
     {
-        /*
-        if (ibsm.delegate == nil)
-        {
-            ibsm.delegate = self
-        }
-        */
-        
         if let message = txfldMessageInput.text
         {
-            if !ibsm.sendPacket(IBPacket(sender: myPeerID, recipient: nil, type: IBPacketType.Sports, message: message, timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME), bPrintMessageToScreen: true)
+            if !ibsm.sendPacket(IBPacket(sender: myPeerID, recipient: nil, type: ibc.topic, message: message, timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME), bPrintMessageToScreen: true)
             {
                 printMessageToScreen(ibsm, strMessage: "Error could not send message")
             }
