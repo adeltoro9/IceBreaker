@@ -73,34 +73,6 @@ class IceBreakerServiceManager: NSObject
         return self.serviceBrowser
     }()
     
-    func reconnect()
-    {
-        serviceAdvertiser.startAdvertisingPeer()
-        print("Started advertising...")
-        
-        if (bConnectToPeersAutomatically)
-        {
-            serviceBrowser.startBrowsingForPeers()
-            print("Started browsing...")
-        }
-    }
-    
-    func disconnect()
-    {
-        print(NSThread.callStackSymbols())
-        
-        mySession.disconnect()
-        
-        serviceAdvertiser.stopAdvertisingPeer()
-        print("Stopped advertising.")
-        
-        if (bConnectToPeersAutomatically)
-        {
-            serviceBrowser.stopBrowsingForPeers()
-            print("Stopped browsing.")
-        }
-    }
-    
     func resetConnection()
     {
         mySession.disconnect()
@@ -124,6 +96,35 @@ class IceBreakerServiceManager: NSObject
         }
     }
     
+    func reconnect()
+    {
+        serviceAdvertiser.startAdvertisingPeer()
+        print("Started advertising...")
+        
+        if (bConnectToPeersAutomatically)
+        {
+            serviceBrowser.startBrowsingForPeers()
+            print("Started browsing...")
+        }
+    }
+    
+    func disconnect()
+    {
+        print(self.recentPackets.count)
+        
+        print(NSThread.callStackSymbols())
+        
+        mySession.disconnect()
+        
+        serviceAdvertiser.stopAdvertisingPeer()
+        print("Stopped advertising.")
+        
+        if (bConnectToPeersAutomatically)
+        {
+            serviceBrowser.stopBrowsingForPeers()
+            print("Stopped browsing.")
+        }
+    }
     
 //# MARK: Packet Processing Methods
     func sendPacket(ibPacket: IBPacket, bPrintMessageToScreen: Bool) -> Bool
