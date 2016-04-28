@@ -73,6 +73,57 @@ class IceBreakerServiceManager: NSObject
         return self.serviceBrowser
     }()
     
+    func reconnect()
+    {
+        serviceAdvertiser.startAdvertisingPeer()
+        print("Started advertising...")
+        
+        if (bConnectToPeersAutomatically)
+        {
+            serviceBrowser.startBrowsingForPeers()
+            print("Started browsing...")
+        }
+    }
+    
+    func disconnect()
+    {
+        print(NSThread.callStackSymbols())
+        
+        mySession.disconnect()
+        
+        serviceAdvertiser.stopAdvertisingPeer()
+        print("Stopped advertising.")
+        
+        if (bConnectToPeersAutomatically)
+        {
+            serviceBrowser.stopBrowsingForPeers()
+            print("Stopped browsing.")
+        }
+    }
+    
+    func resetConnection()
+    {
+        mySession.disconnect()
+        
+        serviceAdvertiser.stopAdvertisingPeer()
+        print("Stopped advertising.")
+        
+        if (bConnectToPeersAutomatically)
+        {
+            serviceBrowser.stopBrowsingForPeers()
+            print("Stopped browsing.")
+        }
+        
+        serviceAdvertiser.startAdvertisingPeer()
+        print("Started advertising...")
+        
+        if (bConnectToPeersAutomatically)
+        {
+            serviceBrowser.startBrowsingForPeers()
+            print("Started browsing...")
+        }
+    }
+    
     
 //# MARK: Packet Processing Methods
     func sendPacket(ibPacket: IBPacket, bPrintMessageToScreen: Bool) -> Bool
@@ -104,8 +155,38 @@ class IceBreakerServiceManager: NSObject
         return bSuccess
     }
     
+    func checkForPacketAndCleanUp(ibp: IBPacket) -> Bool
+    {
+        var i: Int = 0
+        
+        while i < recentPackets.count
+        {
+            if (ibp.uniqueID == recentPackets[i].uniqueID)
+            {
+                return true
+            }
+            else if (NSDate().timeIntervalSinceDate(recentPackets[i].timeStamp) > 3000)
+            {
+                recentPackets.removeAtIndex(i)
+                i -= 1
+            }
+            
+            i += 1
+        }
+
+        recentPackets.append(ibp)
+        
+        return false
+    }
+    
     func processPacket(ibp: IBPacket)
     {
+        if (checkForPacketAndCleanUp(ibp))
+        {
+            // packet was found and so we have already processed it
+            return
+        }
+        
         var bForwardMessage: Bool = true
         
         switch ibp.type

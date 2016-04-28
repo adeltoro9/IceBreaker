@@ -233,6 +233,11 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
         bKeyboardIsVisible = false
     }
     
+    @IBAction func btnResetConnection_Click(sender: AnyObject)
+    {
+        ibsm.resetConnection()
+    }
+    
     @IBAction func btnSendMessage_TouchUpInside(sender: AnyObject)
     {
         if let message = txfldMessageInput.text

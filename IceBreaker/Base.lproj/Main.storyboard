@@ -129,7 +129,14 @@
                             <constraint firstItem="sO4-IV-DfU" firstAttribute="trailing" secondItem="0al-W9-6Tq" secondAttribute="trailing" id="mre-7Y-i5z"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Messages" id="3jK-D0-tjE"/>
+                    <navigationItem key="navigationItem" title="Messages" id="3jK-D0-tjE">
+                        <barButtonItem key="rightBarButtonItem" image="physics_filled-30" id="Zkj-EV-d7q">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="btnResetConnection_Click:" destination="UpQ-UC-8Sl" id="jjP-Gq-al0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="txfldMessageInput" destination="ZmH-QQ-Khe" id="nMK-Fv-ACj"/>
                         <outlet property="txvwMessages" destination="0al-W9-6Tq" id="u3j-29-A7J"/>
@@ -239,7 +246,7 @@
         <!--Settings-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="IceBreaker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -369,6 +376,6 @@
         <image name="profileTrump" width="400" height="400"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DVb-ZR-NvF"/>
+        <segue reference="Yow-gt-QDR"/>
     </inferredMetricsTieBreakers>
 </document>
