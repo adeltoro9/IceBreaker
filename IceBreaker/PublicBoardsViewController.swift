@@ -11,7 +11,7 @@ import MultipeerConnectivity
 
 class PublicBoardsViewController: UITableViewController
 {
-    let aPublicBoards = ["Politics", "Sports", "Marquette Events"]
+    let aPublicBoards = ["\(IBPacketType.Politics)", "\(IBPacketType.Sports)", "\(IBPacketType.MUEvents)"]
     
     var selectedPublicBoard: IBPacketType!
 

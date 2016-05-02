@@ -27,9 +27,9 @@ class IceBreakerServiceManager: NSObject
     
     init(connectToPeersAutomatically: Bool)
     {
-        serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerID, discoveryInfo: nil, serviceType: IceBreakerServiceType)
-        serviceBrowser = MCNearbyServiceBrowser(peer: myPeerID, serviceType: IceBreakerServiceType)
-        mySession = MCSession(peer: myPeerID, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.Required)
+        serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myUserInfo.peerID, discoveryInfo: nil, serviceType: IceBreakerServiceType)
+        serviceBrowser = MCNearbyServiceBrowser(peer: myUserInfo.peerID, serviceType: IceBreakerServiceType)
+        mySession = MCSession(peer: myUserInfo.peerID, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.Required)
         
         bConnectToPeersAutomatically = connectToPeersAutomatically
         
@@ -150,7 +150,7 @@ class IceBreakerServiceManager: NSObject
         
         if (bPrintMessageToScreen)
         {
-            self.delegate?.printMessageToScreen(self, strMessage: "\(ibPacket.sender.displayName): " + ibPacket.message)
+            self.delegate?.printMessageToScreen(self, ibp: ibPacket)
         }
         
         return bSuccess
@@ -166,7 +166,7 @@ class IceBreakerServiceManager: NSObject
             {
                 return true
             }
-            else if (NSDate().timeIntervalSinceDate(recentPackets[i].timeStamp) > 3000)
+            else if (NSDate().timeIntervalSinceDate(recentPackets[i].timeStamp) > (3 * 60))
             {
                 recentPackets.removeAtIndex(i)
                 i -= 1
@@ -193,22 +193,24 @@ class IceBreakerServiceManager: NSObject
         switch ibp.type
         {
         case .Private:
-            if (ibp.recipient == myPeerID)
+            if (ibp.recipient == myUserInfo)
             {
                 // private message is for me!
                 bForwardMessage = false
-                printPacket(ibp)
+                self.delegate?.printMessageToScreen(self, ibp: ibp)
             }
         case .PingQuery:
-            if (ibp.recipient == myPeerID)
+            if (ibp.recipient == myUserInfo)
             {
                 bForwardMessage = false
-                sendPacket(IBPacket(sender: myPeerID, recipient: ibp.sender, type: IBPacketType.PingResponse, message: "I'm here!", timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME), bPrintMessageToScreen: false)
+                sendPacket(IBPacket(sender: myUserInfo, recipient: ibp.sender, type: IBPacketType.PingResponse, message: "I'm here!", timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME), bPrintMessageToScreen: false)
             }
         case .PingResponse:
-            if (ibp.recipient == myPeerID)
+            if (ibp.recipient == myUserInfo)
             {
-                self.delegate?.printMessageToScreen(self, strMessage: "Ping response from \(ibp.sender.displayName)")
+                bForwardMessage = false
+                self.delegate?.printMessageToScreen(self, ibp: ibp)
+                //strMessage: "Ping response from \(ibp.sender.displayName)")
             }
         case .Politics:
             processPublicMessage(ibp, type: .Politics)
@@ -217,7 +219,7 @@ class IceBreakerServiceManager: NSObject
         case .MUEvents:
             processPublicMessage(ibp, type: .MUEvents)
         default:
-            let avc = UIAlertController(title: "Unknown Packet Type", message: "A packet was received from \(ibp.sender.displayName) that could not be processed.", preferredStyle: .Alert)
+            let avc = UIAlertController(title: "Unknown Packet Type", message: "A packet was received from \(ibp.sender.peerID.displayName) that could not be processed.", preferredStyle: .Alert)
             let dismiss = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
             avc.addAction(dismiss)
             UIApplication.topViewController()!.presentViewController(avc, animated: true, completion: nil)
@@ -227,7 +229,7 @@ class IceBreakerServiceManager: NSObject
         {
             if(!forwardPacket(ibp))
             {
-                let avc = UIAlertController(title: "Could not forward packet", message: "A packet \(ibp.uniqueID) that was received from \(ibp.sender.displayName) could not be forwarded.", preferredStyle: .Alert)
+                let avc = UIAlertController(title: "Could not forward packet", message: "A packet \(ibp.uniqueID) that was received from \(ibp.sender.peerID.displayName) could not be forwarded.", preferredStyle: .Alert)
                 let dismiss = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
                 avc.addAction(dismiss)
                 UIApplication.topViewController()!.presentViewController(avc, animated: true, completion: nil)
@@ -239,9 +241,9 @@ class IceBreakerServiceManager: NSObject
     {
         var recipients = session.connectedPeers
         
-        if (recipients.contains(ibp.sender))
+        if (recipients.contains(ibp.sender.peerID))
         {
-            recipients.removeAtIndex(recipients.indexOf(ibp.sender)!)
+            recipients.removeAtIndex(recipients.indexOf(ibp.sender.peerID)!)
         }
         
         var bSuccess: Bool = true
@@ -272,17 +274,18 @@ class IceBreakerServiceManager: NSObject
             {
                 if (mvc.Conversation.topic == ibp.type)
                 {
-                    printPacket(ibp)
+                    self.delegate?.printMessageToScreen(self, ibp: ibp)
                 }
             }
         }
     }
     
+    /*
     func printPacket(ibp: IBPacket)
     {
-        let strNewMessage = "\(ibp.sender.displayName): " + ibp.message
-        self.delegate?.printMessageToScreen(self, strMessage: strNewMessage)
+        self.delegate?.printMessageToScreen(self, ibp: ibp)
     }
+    */
 
 }
 
@@ -290,7 +293,7 @@ class IceBreakerServiceManager: NSObject
 protocol IceBreakerServiceManagerDelegate
 {
     func connectedDevicesChanged(manager: IceBreakerServiceManager, connectedDevices: [String])
-    func printMessageToScreen(manager: IceBreakerServiceManager, strMessage: String)
+    func printMessageToScreen(manager: IceBreakerServiceManager, ibp: IBPacket)
 }
 
 //# MARK: - MCNearbyServiceAdvertiserDelegate Protocol
@@ -312,7 +315,7 @@ extension IceBreakerServiceManager: MCNearbyServiceAdvertiserDelegate
          A block that your code must call to indicate whether the advertiser should accept or decline the invitation, and to provide a session with which to associate the peer that sent the invitation.
          */
         
-        self.delegate?.printMessageToScreen(self, strMessage: ("Received invitation from \(peerID.displayName)"))
+        //self.delegate?.printMessageToScreen(self, strMessage: ("Received invitation from \(peerID.displayName)"))
         
         if (bConnectToPeersAutomatically)
         {
@@ -381,11 +384,13 @@ extension IceBreakerServiceManager: MCNearbyServiceBrowserDelegate
          Discussion
          The peer ID provided to this delegate method can be used to invite the nearby peer to join a session.
         */
-        self.delegate?.printMessageToScreen(self, strMessage: "Found new peer: \(peerID.displayName)!")
+        //self.delegate?.printMessageToScreen(self, strMessage: "Found new peer: \(peerID.displayName)!")
         
         browser.invitePeer(peerID, toSession: self.session, withContext: nil, timeout: 50)
         
-        self.delegate?.printMessageToScreen(self, strMessage: "Inviting \(peerID.displayName)!")
+        //self.delegate?.printMessageToScreen(self, strMessage: "Inviting \(peerID.displayName)!")
+        print("Found new peer: \(peerID.displayName)!")
+        print("Inviting \(peerID.displayName)!")
     }
     
     func browser(browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID)
@@ -403,7 +408,8 @@ extension IceBreakerServiceManager: MCNearbyServiceBrowserDelegate
          Because there is a delay between when a host leaves a network and when the underlying Bonjour layer detects that it has left, the fact that your app has not yet received a disappearance callback does not guarantee that it can communicate with the peer successfully.
         */
         
-        self.delegate?.printMessageToScreen(self, strMessage: "Lost connection to \(peerID.displayName) :'(")
+        //self.delegate?.printMessageToScreen(self, strMessage: "Lost connection to \(peerID.displayName) :'(")
+        print("Lost connection to \(peerID.displayName) :'(")
     }
     
     func browser(browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: NSError)
@@ -451,7 +457,7 @@ extension IceBreakerServiceManager: MCSessionDelegate
          MCSessionStateNotConnected—the nearby peer declined the invitation, the connection could not be established, or a previously connected peer is no longer connected.
         */
         
-        self.delegate?.printMessageToScreen(self, strMessage: "State " + state.stringValue())
+        //self.delegate?.printMessageToScreen(self, strMessage: "State " + state.stringValue())
         
         var aPeers: [String] = [String]()
         
@@ -481,7 +487,6 @@ extension IceBreakerServiceManager: MCSessionDelegate
         {
             processPacket(ibp)
         }
-        
     }
     
     func session(session: MCSession, didReceiveStream stream: NSInputStream, withName streamName: String, fromPeer peerID: MCPeerID)
@@ -497,7 +502,7 @@ extension IceBreakerServiceManager: MCSessionDelegate
          peerID	
          The peer ID of the originator of the stream.
         */
-        self.delegate?.printMessageToScreen(self, strMessage: "Got stream from \(peerID.displayName)")
+        //self.delegate?.printMessageToScreen(self, strMessage: "Got stream from \(peerID.displayName)")
     }
     
     func session(session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, withProgress progress: NSProgress)
@@ -513,7 +518,8 @@ extension IceBreakerServiceManager: MCSessionDelegate
          progress
          An NSProgress object that can be used to cancel the transfer or queried to determine how far the transfer has progressed.
         */
-        self.delegate?.printMessageToScreen(self, strMessage: "Receiving \(resourceName) from \(peerID.displayName)...")
+        //self.delegate?.printMessageToScreen(self, strMessage: "Receiving \(resourceName) from \(peerID.displayName)...")
+        print("Receiving \(resourceName) from \(peerID.displayName)...")
     }
     
     func session(session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, atURL localURL: NSURL, withError error: NSError?)
@@ -533,7 +539,8 @@ extension IceBreakerServiceManager: MCSessionDelegate
          Discussion
          The file referenced by localURL is a temporary file. Your app must either read the file or make a copy in a permanent location before this delegate method returns.
         */
-        self.delegate?.printMessageToScreen(self, strMessage: "Successfully received \(resourceName) from \(peerID.displayName)!")
+        //self.delegate?.printMessageToScreen(self, strMessage: "Successfully received \(resourceName) from \(peerID.displayName)!")
+        print("Successfully received \(resourceName) from \(peerID.displayName)!")
     }
     
     /*

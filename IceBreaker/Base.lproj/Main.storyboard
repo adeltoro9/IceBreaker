@@ -130,7 +130,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Messages" id="3jK-D0-tjE">
-                        <barButtonItem key="rightBarButtonItem" image="physics_filled-30" id="Zkj-EV-d7q">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="Zkj-EV-d7q">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="btnResetConnection_Click:" destination="UpQ-UC-8Sl" id="jjP-Gq-al0"/>
@@ -246,7 +246,7 @@
         <!--Settings-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SettingsViewController" customModule="IceBreaker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -255,32 +255,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileTrump" translatesAutoresizingMaskIntoConstraints="NO" id="miB-Cs-ndC">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red" translatesAutoresizingMaskIntoConstraints="NO" id="miB-Cs-ndC">
                                 <rect key="frame" x="180" y="110" width="240" height="178"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="JER-MQ-CEc"/>
                                 </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="u4X-Rs-Tru" appends="YES" id="b9p-Xh-8uh"/>
-                                </connections>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ox-M0-t42">
                                 <rect key="frame" x="283" y="413" width="34" height="30"/>
                                 <state key="normal" title="Save">
                                     <color key="titleColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnSave_TouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ABZ-c2-7fy"/>
+                                </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="MrPresidentTrump" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pqv-qb-yq6">
-                                <rect key="frame" x="222" y="335" width="156" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New User" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pqv-qb-yq6">
+                                <rect key="frame" x="180" y="335" width="240" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="tts-en-pOt"/>
+                                </constraints>
                                 <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textFieldEditingDidEnd:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="fqn-eA-ee9"/>
+                                    <action selector="textfieldDidEndOnExit:" destination="BYZ-38-t0r" eventType="editingDidEndOnExit" id="7Ah-8I-DX0"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="wLj-3r-kRk"/>
+                                </connections>
                             </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Alligator" translatesAutoresizingMaskIntoConstraints="NO" id="iPw-Iq-5Gf">
+                                <rect key="frame" x="240" y="139" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="9dj-Kz-dCg"/>
+                                    <constraint firstAttribute="width" constant="120" id="BIv-bz-vuR"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="0.5" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="4Ox-M0-t42" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0Pf-9R-f0n"/>
+                            <constraint firstItem="iPw-Iq-5Gf" firstAttribute="centerY" secondItem="miB-Cs-ndC" secondAttribute="centerY" id="0Zp-NY-e99"/>
+                            <constraint firstItem="iPw-Iq-5Gf" firstAttribute="centerX" secondItem="miB-Cs-ndC" secondAttribute="centerX" id="1tk-7b-s54"/>
                             <constraint firstItem="pqv-qb-yq6" firstAttribute="top" secondItem="miB-Cs-ndC" secondAttribute="bottom" constant="47" id="GbT-4D-BeU"/>
                             <constraint firstItem="pqv-qb-yq6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NGq-QW-YOX"/>
                             <constraint firstItem="pqv-qb-yq6" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="50" id="VtI-OI-o1n"/>
@@ -296,9 +313,13 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="80u-9G-g0e"/>
+                    <connections>
+                        <outlet property="imgvwAnimalIcon" destination="iPw-Iq-5Gf" id="LdS-gM-vEu"/>
+                        <outlet property="imgvwBackground" destination="miB-Cs-ndC" id="9Au-10-NAa"/>
+                        <outlet property="txfldUserInput" destination="pqv-qb-yq6" id="oye-jw-n7P"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="u4X-Rs-Tru"/>
             </objects>
             <point key="canvasLocation" x="551" y="941"/>
         </scene>
@@ -370,10 +391,11 @@
     </scenes>
     <resources>
         <image name="29" width="29" height="29"/>
+        <image name="Alligator" width="100" height="100"/>
         <image name="address_book_filled-30" width="30" height="30"/>
         <image name="chat_filled-30" width="30" height="30"/>
         <image name="physics_filled-30" width="30" height="30"/>
-        <image name="profileTrump" width="400" height="400"/>
+        <image name="red" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Yow-gt-QDR"/>

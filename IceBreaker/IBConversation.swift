@@ -20,8 +20,8 @@ class IBConversation: NSObject
         }
     }
     
-    private var people: [MCPeerID]
-    var People: [MCPeerID]
+    private var people: [IBUser]
+    var People: [IBUser]
     {
         get
         {
@@ -34,7 +34,7 @@ class IBConversation: NSObject
     init(topic: IBPacketType)
     {
         self.messages = [IBPacket]()
-        self.people = [MCPeerID]()
+        self.people = [IBUser]()
         self.topic = topic
     }
     

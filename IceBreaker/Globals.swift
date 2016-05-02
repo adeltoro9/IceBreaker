@@ -17,20 +17,20 @@ var ibsm: IceBreakerServiceManager!
 
 let DEFAULT_LIFETIME = 10
 
-var myPeerID: MCPeerID
+var myUserInfo: IBUser
 {
     get
     {
-        return _peerID
+        return _myUserInfo
     }
     
     set
     {
-        _peerID = newValue
+        _myUserInfo = newValue
     }
 }
 
-private var _peerID = MCPeerID(displayName: UIDevice.currentDevice().name)
+private var _myUserInfo: IBUser = IBUser(peerID: MCPeerID(displayName: UIDevice.currentDevice().name), animalIcon: "Bull", backgroundColor: "red")
 
 var _messagesScreen: IceBreakerServiceManagerDelegate! = nil
 

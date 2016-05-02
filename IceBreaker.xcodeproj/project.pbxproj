@@ -17,6 +17,8 @@
 		921030651CC5AB2D007F1BD9 /* IceBreakerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921030641CC5AB2D007F1BD9 /* IceBreakerUITests.swift */; };
 		92593F9E1CD107FC006C20BD /* IBConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92593F9D1CD107FC006C20BD /* IBConversation.swift */; };
 		92E02B9A1CCC753700EBACE5 /* IBPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E02B991CCC753700EBACE5 /* IBPacket.swift */; };
+		92F340D31CD7F6F6000C5EB3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F340D21CD7F6F6000C5EB3 /* SettingsViewController.swift */; };
+		92F340D51CD7FBFF000C5EB3 /* IBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F340D41CD7FBFF000C5EB3 /* IBUser.swift */; };
 		92FB8C491CC7333200FD4894 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FB8C481CC7333200FD4894 /* MessagesViewController.swift */; };
 		92FB8C4B1CC7333D00FD4894 /* IceBreakerServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FB8C4A1CC7333D00FD4894 /* IceBreakerServiceManager.swift */; };
 		92FB8C4D1CC7337900FD4894 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FB8C4C1CC7337900FD4894 /* Globals.swift */; };
@@ -56,6 +58,8 @@
 		921030661CC5AB2D007F1BD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92593F9D1CD107FC006C20BD /* IBConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBConversation.swift; sourceTree = "<group>"; };
 		92E02B991CCC753700EBACE5 /* IBPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBPacket.swift; sourceTree = "<group>"; };
+		92F340D21CD7F6F6000C5EB3 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		92F340D41CD7FBFF000C5EB3 /* IBUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBUser.swift; sourceTree = "<group>"; };
 		92FB8C481CC7333200FD4894 /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		92FB8C4A1CC7333D00FD4894 /* IceBreakerServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IceBreakerServiceManager.swift; sourceTree = "<group>"; };
 		92FB8C4C1CC7337900FD4894 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
@@ -117,6 +121,8 @@
 				92FB8C481CC7333200FD4894 /* MessagesViewController.swift */,
 				92593F9D1CD107FC006C20BD /* IBConversation.swift */,
 				921030451CC5AB2D007F1BD9 /* Main.storyboard */,
+				92F340D21CD7F6F6000C5EB3 /* SettingsViewController.swift */,
+				92F340D41CD7FBFF000C5EB3 /* IBUser.swift */,
 				9210304B1CC5AB2D007F1BD9 /* Assets.xcassets */,
 				9210304D1CC5AB2D007F1BD9 /* LaunchScreen.storyboard */,
 				921030501CC5AB2D007F1BD9 /* Info.plist */,
@@ -282,7 +288,9 @@
 				92FB8C491CC7333200FD4894 /* MessagesViewController.swift in Sources */,
 				92593F9E1CD107FC006C20BD /* IBConversation.swift in Sources */,
 				92FB8C4B1CC7333D00FD4894 /* IceBreakerServiceManager.swift in Sources */,
+				92F340D51CD7FBFF000C5EB3 /* IBUser.swift in Sources */,
 				921030421CC5AB2D007F1BD9 /* AppDelegate.swift in Sources */,
+				92F340D31CD7F6F6000C5EB3 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,7 +437,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = IceBreaker/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnthonyDDelToro.IceBreaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -444,7 +452,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = IceBreaker/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnthonyDDelToro.IceBreaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";

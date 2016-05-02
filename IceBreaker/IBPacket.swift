@@ -22,15 +22,15 @@ enum IBPacketType : Int
 
 class IBPacket: NSObject, NSCoding
 {
-    let sender: MCPeerID
-    let recipient: MCPeerID?    // nil if message is intended for a chat room
+    let sender: IBUser
+    let recipient: IBUser?    // nil if message is intended for a chat room
     let type: IBPacketType
     let message: String
     let timeStamp: NSDate
     let lifeTime: Int
     let uniqueID: NSUUID
     
-    init(sender: MCPeerID, recipient: MCPeerID?, type: IBPacketType, message: String, timeStamp: NSDate, lifeTime: Int)
+    init(sender: IBUser, recipient: IBUser?, type: IBPacketType, message: String, timeStamp: NSDate, lifeTime: Int)
     {
         self.sender = sender
         
@@ -54,9 +54,9 @@ class IBPacket: NSObject, NSCoding
     
     required init?(coder aDecoder: NSCoder)
     {
-        self.sender = aDecoder.decodeObjectForKey("sender") as! MCPeerID
+        self.sender = aDecoder.decodeObjectForKey("sender") as! IBUser
         
-        if let rec = (aDecoder.decodeObjectForKey("recipient") as? MCPeerID)
+        if let rec = (aDecoder.decodeObjectForKey("recipient") as? IBUser)
         {
             self.recipient = rec
         }

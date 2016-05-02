@@ -242,9 +242,9 @@ class MessagesViewController: UIViewController, UITextFieldDelegate
     {
         if let message = txfldMessageInput.text
         {
-            if !ibsm.sendPacket(IBPacket(sender: myPeerID, recipient: nil, type: ibc.topic, message: message, timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME), bPrintMessageToScreen: true)
+            if !ibsm.sendPacket(IBPacket(sender: myUserInfo, recipient: nil, type: ibc.topic, message: message, timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME), bPrintMessageToScreen: true)
             {
-                printMessageToScreen(ibsm, strMessage: "Error could not send message")
+                printMessageToScreen(ibsm, ibp: IBPacket(sender: myUserInfo, recipient: nil, type: ibc.topic, message: "Error could not send message", timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME))
             }
             else
             {
@@ -267,11 +267,17 @@ extension MessagesViewController: IceBreakerServiceManagerDelegate
 {
     func connectedDevicesChanged(manager : IceBreakerServiceManager, connectedDevices: [String])
     {
-        printMessageToScreen(ibsm, strMessage: "Connected devices: \(connectedDevices)")
+        //printMessageToScreen(ibsm, strMessage: "Connected devices: \(connectedDevices)")
+        
+        print("Connected devices: \(connectedDevices)")
     }
     
-    func printMessageToScreen(manager: IceBreakerServiceManager, strMessage: String)
+    func printMessageToScreen(manager: IceBreakerServiceManager, ibp: IBPacket)
     {
+        let strMessage = ibp.sender.peerID.displayName + ": " + ibp.message
+        print(ibp.sender.animalIcon)
+        print(ibp.sender.backgroundColor)
+        
         if self == UIApplication.topViewController()
         {
             // Adding text to the textview must be done on the MAIN thread
