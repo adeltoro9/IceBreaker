@@ -43,11 +43,6 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
             ibsm.delegate = self
         }
         
-        nvgitmTitle.backBarButtonItem = UIBarButtonItem()
-        nvgitmTitle.backBarButtonItem!.tintColor = UIColor.init(colorLiteralRed: 0.882, green: 0.882, blue: 0.882, alpha: 1.0)
-        //nvgitmTitle.backBarButtonItem!
- 
-        
         print("\(self.Conversation.topic)")
     }
     
@@ -107,16 +102,21 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func btnConnectedPeers_Click(sender: AnyObject)
     {
-        var devices = "{ "
+        var devices = ""
         
-        for peer in ibsm.session.connectedPeers
+        if (ibsm.session.connectedPeers.count > 0)
         {
-            devices += peer.displayName + " "
+            for peer in ibsm.session.connectedPeers
+            {
+                devices += peer.displayName + "  "
+            }
+        }
+        else
+        {
+            devices = "None"
         }
         
-        devices += " }"
-        
-        let avc = UIAlertController(title: "Connected Devices", message: "You are connected to: " + devices, preferredStyle: .ActionSheet)
+        let avc = UIAlertController(title: "Connected Devices", message: devices, preferredStyle: .ActionSheet)
         let dismiss = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
         avc.addAction(dismiss)
         presentViewController(avc, animated: true, completion: nil)
@@ -194,8 +194,22 @@ extension MessagesViewController: IceBreakerServiceManagerDelegate
     {
         if NSThread.isMainThread()
         {
-            self.tableView.reloadData()
-            self.tableView.setContentOffset(CGPointMake(0, CGFloat.max), animated: true)
+            var reloadIndexPaths = [NSIndexPath]()
+            
+            if let paths = self.tableView.indexPathsForVisibleRows
+            {
+                //reloadIndexPaths = paths
+                self.tableView.reloadData()
+            }
+            else
+            {
+                reloadIndexPaths.append(NSIndexPath(forRow: 0, inSection: 0))
+                self.tableView.reloadRowsAtIndexPaths(reloadIndexPaths, withRowAnimation: .Fade)
+            }
+            
+            // TODO figure out how to scroll tableview to bottom without messing stuff up
+            //self.tableView.reloadData()
+            //self.tableView.setContentOffset(CGPointMake(0, CGFloat.max), animated: true)
         }
         else
         {
