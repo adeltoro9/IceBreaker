@@ -9,11 +9,20 @@
 import UIKit
 import MultipeerConnectivity
 
-class PublicBoardsViewController: UITableViewController
+class PublicBoardsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
-    let aPublicBoards = ["\(IBPacketType.Politics)", "\(IBPacketType.Sports)", "\(IBPacketType.MUEvents)"]
+    let publicBoards = [IBPacketType.Politics, IBPacketType.Sports, IBPacketType.MUEvents]
     
     var selectedPublicBoard: IBPacketType!
+    
+    let publicBoardIcons: [IBPacketType: String] =
+        [ IBPacketType.Politics:"Globe",
+        IBPacketType.Sports:"Football",
+        IBPacketType.MUEvents:"Classroom" ]
+    let publicBoardBackgrounds: [IBPacketType: String] =
+        [ IBPacketType.Politics:"orange",
+        IBPacketType.Sports:"green",
+        IBPacketType.MUEvents:"blue" ]
 
     override func viewDidLoad()
     {
@@ -27,37 +36,53 @@ class PublicBoardsViewController: UITableViewController
         // Dispose of any resources that can be recreated.
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return aPublicBoards.count
+        return publicBoards.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("UITableViewCell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("PublicBoardsCell", forIndexPath: indexPath) as! PublicBoardsCell
         
-        cell.textLabel?.text = aPublicBoards[indexPath.row]
+        switch publicBoards[indexPath.row]
+        {
+        case .Politics:
+            cell.chatroomLabel.text = "Politics"
+        case .Sports:
+            cell.chatroomLabel.text = "Sports"
+        case .MUEvents:
+            cell.chatroomLabel.text = "Marquette Events"
+        default:
+            cell.chatroomLabel.text = "None"
+        }
+        
+        cell.imageIcon.image = UIImage(named: publicBoardIcons[publicBoards[indexPath.row]]!)
+        cell.imageBackground.image = UIImage(named: publicBoardBackgrounds[publicBoards[indexPath.row]]!)
+        
+        cell.layer.borderWidth = 0.5;
+        cell.layer.borderColor = UIColor.init(colorLiteralRed: 0.882, green: 0.882, blue: 0.882, alpha: 1.0).CGColor
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)!
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! PublicBoardsCell
         cell.setSelected(false, animated: false)
         
-        switch cell.textLabel!.text!
+        switch cell.chatroomLabel.text!
         {
         case "Politics":
             selectedPublicBoard = IBPacketType.Politics
         case "Sports":
             selectedPublicBoard = IBPacketType.Sports
-        case "MUEvents":
+        case "Marquette Events":
             selectedPublicBoard = IBPacketType.MUEvents
         default:
             selectedPublicBoard = .None
@@ -81,7 +106,7 @@ class PublicBoardsViewController: UITableViewController
             else
             {
                 ibsm.publicConversations[selectedPublicBoard] = IBConversation(topic: selectedPublicBoard)
-                (segue.destinationViewController as! MessagesViewController).Conversation = ibsm.publicConversations[selectedPublicBoard]
+                //(segue.destinationViewController as! MessagesViewController).Conversation = ibsm.publicConversations[selectedPublicBoard]
             }
         }
     }
