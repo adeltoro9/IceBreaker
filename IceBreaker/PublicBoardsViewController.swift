@@ -57,7 +57,7 @@ class PublicBoardsViewController: UITableViewController
             selectedPublicBoard = IBPacketType.Politics
         case "Sports":
             selectedPublicBoard = IBPacketType.Sports
-        case "Marquette Events":
+        case "MUEvents":
             selectedPublicBoard = IBPacketType.MUEvents
         default:
             selectedPublicBoard = .None

@@ -7,6 +7,8 @@
 //
 
 import MultipeerConnectivity
+import CoreData
+import Foundation
 import UIKit
 
 // Service type must be a unique string, at most 15 characters long
@@ -30,7 +32,7 @@ var myUserInfo: IBUser
     }
 }
 
-private var _myUserInfo: IBUser = IBUser(peerID: MCPeerID(displayName: UIDevice.currentDevice().name), animalIcon: "Bull", backgroundColor: "red")
+private var _myUserInfo: IBUser! //= IBUser(username: UIDevice.currentDevice().name, animalIcon: "Bull", backgroundColor: "red", entity: NSEntityDescription.entityForName("IBUser", inManagedObjectContext: (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext)!, insertIntoManagedObjectContext: (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext)
 
 var _messagesScreen: IceBreakerServiceManagerDelegate! = nil
 

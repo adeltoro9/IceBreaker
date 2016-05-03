@@ -8,15 +8,20 @@
 
 import UIKit
 import CoreData
+import MultipeerConnectivity
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        /*
+        let entityDescription = NSEntityDescription.entityForName("IBUser", inManagedObjectContext: self.managedObjectContext)
+        let userInfo = NSManagedObject(entity: entityDescription!, insertIntoManagedObjectContext: self.managedObjectContext)
+        */
         
         return true
     }
@@ -40,6 +45,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        let fetchRequest = NSFetchRequest(entityName: "IBUser")
+        
+        do
+        {
+            let results = try self.managedObjectContext.executeFetchRequest(fetchRequest)
+            if (results.count > 0)
+            {
+                myUserInfo = results[0] as! IBUser
+                myUserInfo.peerID = MCPeerID(displayName: myUserInfo.username)
+                /*
+                print((results[0] as! IBUser).username)
+                print((results[0] as! IBUser).animalIcon)
+                print((results[0] as! IBUser).backgroundColor)
+                print(myUserInfo.username)
+                print(myUserInfo.animalIcon)
+                print(myUserInfo.backgroundColor)
+                */
+            }
+            else
+            {
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                myUserInfo = IBUser(username: UIDevice.currentDevice().name, animalIcon: "Alligator", backgroundColor: "red", entity: NSEntityDescription.entityForName("IBUser", inManagedObjectContext: appDelegate.managedObjectContext)!, insertIntoManagedObjectContext: appDelegate.managedObjectContext)
+            }
+        }
+        catch let error as NSError
+        {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+        
         if (ibsm == nil)
         {
             ibsm = IceBreakerServiceManager(connectToPeersAutomatically: true)

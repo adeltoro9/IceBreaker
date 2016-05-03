@@ -148,8 +148,9 @@ class IceBreakerServiceManager: NSObject
             bSuccess = false
         }
         
-        if (bPrintMessageToScreen)
+        if (bPrintMessageToScreen && bSuccess)
         {
+            print("sendPacket")
             self.delegate?.printMessageToScreen(self, ibp: ibPacket)
         }
         
@@ -197,6 +198,7 @@ class IceBreakerServiceManager: NSObject
             {
                 // private message is for me!
                 bForwardMessage = false
+                print("processPacket - Private")
                 self.delegate?.printMessageToScreen(self, ibp: ibp)
             }
         case .PingQuery:
@@ -209,6 +211,7 @@ class IceBreakerServiceManager: NSObject
             if (ibp.recipient == myUserInfo)
             {
                 bForwardMessage = false
+                print("processPacket - PingResponse")
                 self.delegate?.printMessageToScreen(self, ibp: ibp)
                 //strMessage: "Ping response from \(ibp.sender.displayName)")
             }
@@ -240,10 +243,18 @@ class IceBreakerServiceManager: NSObject
     func forwardPacket(ibp: IBPacket) -> Bool
     {
         var recipients = session.connectedPeers
+
+        var i: Int = 0
         
-        if (recipients.contains(ibp.sender.peerID))
+        while (i < recipients.count)
         {
-            recipients.removeAtIndex(recipients.indexOf(ibp.sender.peerID)!)
+            //print(recipients[i].displayName + " v. " + ibp.sender.peerID.displayName)
+            if recipients[i].displayName == ibp.sender.peerID.displayName
+            {
+                recipients.removeAtIndex(i)
+                break
+            }
+            i += 1
         }
         
         var bSuccess: Bool = true
@@ -274,6 +285,7 @@ class IceBreakerServiceManager: NSObject
             {
                 if (mvc.Conversation.topic == ibp.type)
                 {
+                    print("processPublicMessage")
                     self.delegate?.printMessageToScreen(self, ibp: ibp)
                 }
             }
