@@ -220,8 +220,18 @@ extension MessagesViewController: IceBreakerServiceManagerDelegate
         {
             dispatch_async(dispatch_get_main_queue(),
             {
-                self.tableView.reloadData()
-                self.tableView.setContentOffset(CGPointMake(0, CGFloat.max), animated: true)
+                var reloadIndexPaths = [NSIndexPath]()
+                
+                if let paths = self.tableView.indexPathsForVisibleRows
+                {
+                    //reloadIndexPaths = paths
+                    self.tableView.reloadData()
+                }
+                else
+                {
+                    reloadIndexPaths.append(NSIndexPath(forRow: 0, inSection: 0))
+                    self.tableView.reloadRowsAtIndexPaths(reloadIndexPaths, withRowAnimation: .Fade)
+                }
             })
         }
     }

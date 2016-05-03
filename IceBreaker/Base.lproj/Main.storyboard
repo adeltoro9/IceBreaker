@@ -205,10 +205,10 @@
                     <tabBar key="tabBar" opaque="NO" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Xg4-nd-34z">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="selectedImageTintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="selectedImageTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="aWJ-4X-A73" kind="relationship" relationship="viewControllers" id="K6T-gh-APK"/>
@@ -362,7 +362,7 @@
         <scene sceneID="jfu-Ry-nAi">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aWJ-4X-A73" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Public Boards" image="chat_filled-30" id="oBI-EM-3w0"/>
+                    <tabBarItem key="tabBarItem" title="Public Boards" image="chat_filled-30" selectedImage="chat_filled-30" id="oBI-EM-3w0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Du6-ek-nlT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
