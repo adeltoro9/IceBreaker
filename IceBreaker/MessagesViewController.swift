@@ -33,7 +33,6 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet weak var nvgitmTitle: UINavigationItem!
     @IBOutlet weak var btnConnectedPeers: UIBarButtonItem!
-    @IBOutlet weak var btnBack: UIBarButtonItem!
     
     override func viewDidLoad()
     {
@@ -44,11 +43,10 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
             ibsm.delegate = self
         }
         
-        /*
-        let btnBack = UIBarButtonItem()
-        nvgitmTitle.backBarButtonItem =
-        nvgitmTitle.backBarButtonItem?.tintColor = UIColor.init(colorLiteralRed: 0.882, green: 0.882, blue: 0.882, alpha: 1.0)
-        */
+        nvgitmTitle.backBarButtonItem = UIBarButtonItem()
+        nvgitmTitle.backBarButtonItem!.tintColor = UIColor.init(colorLiteralRed: 0.882, green: 0.882, blue: 0.882, alpha: 1.0)
+        //nvgitmTitle.backBarButtonItem!
+ 
         
         print("\(self.Conversation.topic)")
     }

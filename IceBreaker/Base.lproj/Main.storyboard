@@ -367,7 +367,11 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Du6-ek-nlT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <userDefinedRuntimeAttributes>
@@ -392,9 +396,18 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="I5Y-1W-5De">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="view.backgroundColor">
+                            <color key="value" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="z5a-IG-HBC" kind="relationship" relationship="rootViewController" id="MVQ-9d-Lz6"/>
                     </connections>
@@ -412,7 +425,11 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="J6i-Uz-mTS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -465,8 +482,8 @@
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="0tk-EA-7je"/>
                                                             <exclude reference="0jb-zC-PsL"/>
+                                                            <exclude reference="0tk-EA-7je"/>
                                                         </mask>
                                                     </variation>
                                                 </imageView>
@@ -494,10 +511,10 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="HAH-Xe-MTV"/>
-                                                    <exclude reference="v6e-ZN-GXu"/>
-                                                    <exclude reference="nYw-Ad-CD5"/>
                                                     <exclude reference="B7y-I1-Trx"/>
+                                                    <exclude reference="HAH-Xe-MTV"/>
+                                                    <exclude reference="nYw-Ad-CD5"/>
+                                                    <exclude reference="v6e-ZN-GXu"/>
                                                 </mask>
                                             </variation>
                                             <variation key="widthClass=compact">
@@ -505,9 +522,9 @@
                                                     <include reference="q38-4c-X2m"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <include reference="B7y-I1-Trx"/>
                                                     <include reference="HAH-Xe-MTV"/>
                                                     <include reference="v6e-ZN-GXu"/>
-                                                    <include reference="B7y-I1-Trx"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -536,10 +553,10 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="jOc-OA-CYF"/>
-                                <exclude reference="azA-0g-Sio"/>
-                                <exclude reference="qxT-ck-D82"/>
                                 <exclude reference="39m-dH-YAZ"/>
+                                <exclude reference="azA-0g-Sio"/>
+                                <exclude reference="jOc-OA-CYF"/>
+                                <exclude reference="qxT-ck-D82"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -547,10 +564,10 @@
                                 <include reference="baq-Ho-ZeP"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="jOc-OA-CYF"/>
-                                <include reference="azA-0g-Sio"/>
-                                <include reference="qxT-ck-D82"/>
                                 <include reference="39m-dH-YAZ"/>
+                                <include reference="azA-0g-Sio"/>
+                                <include reference="jOc-OA-CYF"/>
+                                <include reference="qxT-ck-D82"/>
                             </mask>
                         </variation>
                     </view>
