@@ -119,6 +119,7 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
         let avc = UIAlertController(title: "Connected Devices", message: devices, preferredStyle: .ActionSheet)
         let dismiss = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
         avc.addAction(dismiss)
+        
         presentViewController(avc, animated: true, completion: nil)
     }
     
