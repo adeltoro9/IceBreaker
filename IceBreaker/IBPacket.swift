@@ -25,7 +25,7 @@ class IBPacket: NSObject, NSCoding
     let sender: IBUser
     let recipient: IBUser?    // nil if message is intended for a chat room
     let type: IBPacketType
-    let message: String
+    var message: String
     let timeStamp: NSDate
     let lifeTime: Int
     let uniqueID: NSUUID

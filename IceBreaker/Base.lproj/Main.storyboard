@@ -20,8 +20,8 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" misplaced="YES" barStyle="black" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVP-Fl-Gc7">
-                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <searchBar contentMode="redraw" barStyle="black" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVP-Fl-Gc7">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="barTintColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -61,6 +61,56 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1039" y="239"/>
+        </scene>
+        <!--New Message-->
+        <scene sceneID="Oyh-JP-GDY">
+            <objects>
+                <viewController id="b9u-w9-fOt" customClass="ComposeMessageViewController" customModule="IceBreaker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="46b-cw-2Qm"/>
+                        <viewControllerLayoutGuide type="bottom" id="UXJ-CJ-6Vy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="svb-aK-2WO">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" text="New Message" translatesAutoresizingMaskIntoConstraints="NO" id="lgb-ER-34a">
+                                <rect key="frame" x="20" y="0.0" width="560" height="551"/>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="alphabet" keyboardAppearance="alert" returnKeyType="send"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="UXJ-CJ-6Vy" firstAttribute="top" secondItem="lgb-ER-34a" secondAttribute="bottom" id="09L-Le-WgM"/>
+                            <constraint firstItem="lgb-ER-34a" firstAttribute="leading" secondItem="svb-aK-2WO" secondAttribute="leadingMargin" id="E0D-7A-8ga"/>
+                            <constraint firstItem="lgb-ER-34a" firstAttribute="top" secondItem="46b-cw-2Qm" secondAttribute="bottom" constant="-64" id="LR1-2c-2S8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="lgb-ER-34a" secondAttribute="trailing" id="rHb-CB-ntj"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="New Message" id="Hm6-af-id5">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Q6e-tz-EmV">
+                            <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="btnCancel_Click:" destination="b9u-w9-fOt" id="NCa-k0-rrD"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Send" id="qLc-Zw-tFa">
+                            <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="btnSend_Click:" destination="b9u-w9-fOt" id="V1E-B0-kdX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="txvwNewMessage" destination="lgb-ER-34a" id="FwM-hZ-Egs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QUQ-AU-u22" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2662" y="-667"/>
         </scene>
         <!--Messages-->
         <scene sceneID="rqE-UE-CVr">
@@ -108,8 +158,8 @@
                                     <action selector="btnSendMessage_TouchUpInside:" destination="UpQ-UC-8Sl" eventType="touchUpInside" id="qlr-JF-Eoi"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" indicatorStyle="black" keyboardDismissMode="interactive" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0al-W9-6Tq">
-                                <rect key="frame" x="40" y="84" width="520" height="387"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="black" keyboardDismissMode="interactive" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0al-W9-6Tq">
+                                <rect key="frame" x="40" y="20" width="520" height="387"/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -373,26 +423,26 @@
             </objects>
             <point key="canvasLocation" x="-177" y="941"/>
         </scene>
-        <!--School-->
+        <!--Topic-->
         <scene sceneID="X9n-FB-78d">
             <objects>
-                <viewController id="jyi-eI-XSV" customClass="Chatroom" customModule="IceBreaker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="jyi-eI-XSV" customClass="MessagesViewController" customModule="IceBreaker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tCZ-7O-Oyf"/>
                         <viewControllerLayoutGuide type="bottom" id="rzN-KL-vka"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="sEL-IN-npU">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="baq-Ho-ZeP">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
                                 <color key="separatorColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="messageCell" id="syI-CG-4iV" customClass="MessageCell" customModule="IceBreaker" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MessageCell" id="syI-CG-4iV" customClass="MessageCell" customModule="IceBreaker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="syI-CG-4iV" id="wly-1g-wG5">
@@ -505,22 +555,33 @@
                         </variation>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="School" id="XZJ-xg-Kih">
+                    <navigationItem key="navigationItem" title="Topic" id="XZJ-xg-Kih">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="compose" id="Wqw-PG-bn6">
                                 <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="btnCompose_Click:" destination="jyi-eI-XSV" id="hPS-S8-o1z"/>
+                                </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="refresh" id="zCe-Lo-Ua7">
                                 <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="btnResetConnection_Click:" destination="jyi-eI-XSV" id="5th-iC-SYV"/>
+                                </connections>
                             </barButtonItem>
                             <barButtonItem title="0" id="EQU-q7-S9Y">
                                 <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="btnConnectedPeers_Click:" destination="jyi-eI-XSV" id="oVU-JB-QN7"/>
+                                </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="tableView" destination="baq-Ho-ZeP" id="UOJ-7U-9FS"/>
+                        <outlet property="btnConnectedPeers" destination="EQU-q7-S9Y" id="9hm-yT-hYQ"/>
+                        <outlet property="nvgitmTitle" destination="XZJ-xg-Kih" id="aXV-rN-BSm"/>
+                        <outlet property="tableView" destination="baq-Ho-ZeP" id="hNc-G6-bOn"/>
+                        <segue destination="b9u-w9-fOt" kind="show" identifier="showNewMessageScreen" id="TWf-Tu-WUF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qSP-aJ-IPd" sceneMemberID="firstResponder"/>

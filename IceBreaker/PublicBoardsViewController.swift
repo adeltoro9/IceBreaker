@@ -57,7 +57,7 @@ class PublicBoardsViewController: UIViewController, UITableViewDelegate, UITable
         case .Sports:
             cell.chatroomLabel.text = "Sports"
         case .MUEvents:
-            cell.chatroomLabel.text = "Marquette Events"
+            cell.chatroomLabel.text = "MU Events"
         default:
             cell.chatroomLabel.text = "None"
         }
@@ -106,7 +106,7 @@ class PublicBoardsViewController: UIViewController, UITableViewDelegate, UITable
             else
             {
                 ibsm.publicConversations[selectedPublicBoard] = IBConversation(topic: selectedPublicBoard)
-                //(segue.destinationViewController as! MessagesViewController).Conversation = ibsm.publicConversations[selectedPublicBoard]
+                (segue.destinationViewController as! MessagesViewController).Conversation = ibsm.publicConversations[selectedPublicBoard]
             }
         }
     }

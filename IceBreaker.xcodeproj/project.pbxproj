@@ -19,10 +19,11 @@
 		92E02B9A1CCC753700EBACE5 /* IBPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E02B991CCC753700EBACE5 /* IBPacket.swift */; };
 		92ED49F71CD89C9F00CEC940 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ED49F61CD89C9F00CEC940 /* MessageCell.swift */; };
 		92ED49F91CD89CAB00CEC940 /* PublicBoardsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ED49F81CD89CAB00CEC940 /* PublicBoardsCell.swift */; };
-		92ED49FD1CD8ADE500CEC940 /* Chatroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ED49FC1CD8ADE500CEC940 /* Chatroom.swift */; };
+		92ED49FD1CD8ADE500CEC940 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ED49FC1CD8ADE500CEC940 /* MessagesViewController.swift */; };
+		92ED49FF1CD8BE1C00CEC940 /* ComposeMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ED49FE1CD8BE1C00CEC940 /* ComposeMessageViewController.swift */; };
 		92F340D31CD7F6F6000C5EB3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F340D21CD7F6F6000C5EB3 /* SettingsViewController.swift */; };
 		92F340D51CD7FBFF000C5EB3 /* IBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F340D41CD7FBFF000C5EB3 /* IBUser.swift */; };
-		92FB8C491CC7333200FD4894 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FB8C481CC7333200FD4894 /* MessagesViewController.swift */; };
+		92FB8C491CC7333200FD4894 /* OriginalMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FB8C481CC7333200FD4894 /* OriginalMessagesViewController.swift */; };
 		92FB8C4B1CC7333D00FD4894 /* IceBreakerServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FB8C4A1CC7333D00FD4894 /* IceBreakerServiceManager.swift */; };
 		92FB8C4D1CC7337900FD4894 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FB8C4C1CC7337900FD4894 /* Globals.swift */; };
 /* End PBXBuildFile section */
@@ -63,10 +64,11 @@
 		92E02B991CCC753700EBACE5 /* IBPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBPacket.swift; sourceTree = "<group>"; };
 		92ED49F61CD89C9F00CEC940 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		92ED49F81CD89CAB00CEC940 /* PublicBoardsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicBoardsCell.swift; sourceTree = "<group>"; };
-		92ED49FC1CD8ADE500CEC940 /* Chatroom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chatroom.swift; sourceTree = "<group>"; };
+		92ED49FC1CD8ADE500CEC940 /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		92ED49FE1CD8BE1C00CEC940 /* ComposeMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeMessageViewController.swift; sourceTree = "<group>"; };
 		92F340D21CD7F6F6000C5EB3 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		92F340D41CD7FBFF000C5EB3 /* IBUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBUser.swift; sourceTree = "<group>"; };
-		92FB8C481CC7333200FD4894 /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		92FB8C481CC7333200FD4894 /* OriginalMessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginalMessagesViewController.swift; sourceTree = "<group>"; };
 		92FB8C4A1CC7333D00FD4894 /* IceBreakerServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IceBreakerServiceManager.swift; sourceTree = "<group>"; };
 		92FB8C4C1CC7337900FD4894 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,12 +128,13 @@
 				921030431CC5AB2D007F1BD9 /* PublicBoardsViewController.swift */,
 				92FB8C4A1CC7333D00FD4894 /* IceBreakerServiceManager.swift */,
 				92E02B991CCC753700EBACE5 /* IBPacket.swift */,
-				92FB8C481CC7333200FD4894 /* MessagesViewController.swift */,
+				92FB8C481CC7333200FD4894 /* OriginalMessagesViewController.swift */,
 				92593F9D1CD107FC006C20BD /* IBConversation.swift */,
 				921030451CC5AB2D007F1BD9 /* Main.storyboard */,
 				92F340D21CD7F6F6000C5EB3 /* SettingsViewController.swift */,
 				92F340D41CD7FBFF000C5EB3 /* IBUser.swift */,
-				92ED49FC1CD8ADE500CEC940 /* Chatroom.swift */,
+				92ED49FC1CD8ADE500CEC940 /* MessagesViewController.swift */,
+				92ED49FE1CD8BE1C00CEC940 /* ComposeMessageViewController.swift */,
 				9210304B1CC5AB2D007F1BD9 /* Assets.xcassets */,
 				9210304D1CC5AB2D007F1BD9 /* LaunchScreen.storyboard */,
 				921030501CC5AB2D007F1BD9 /* Info.plist */,
@@ -293,10 +296,11 @@
 				92ED49F71CD89C9F00CEC940 /* MessageCell.swift in Sources */,
 				92E02B9A1CCC753700EBACE5 /* IBPacket.swift in Sources */,
 				9210304A1CC5AB2D007F1BD9 /* IceBreaker.xcdatamodeld in Sources */,
+				92ED49FF1CD8BE1C00CEC940 /* ComposeMessageViewController.swift in Sources */,
 				921030441CC5AB2D007F1BD9 /* PublicBoardsViewController.swift in Sources */,
 				92FB8C4D1CC7337900FD4894 /* Globals.swift in Sources */,
-				92FB8C491CC7333200FD4894 /* MessagesViewController.swift in Sources */,
-				92ED49FD1CD8ADE500CEC940 /* Chatroom.swift in Sources */,
+				92FB8C491CC7333200FD4894 /* OriginalMessagesViewController.swift in Sources */,
+				92ED49FD1CD8ADE500CEC940 /* MessagesViewController.swift in Sources */,
 				92593F9E1CD107FC006C20BD /* IBConversation.swift in Sources */,
 				92FB8C4B1CC7333D00FD4894 /* IceBreakerServiceManager.swift in Sources */,
 				92F340D51CD7FBFF000C5EB3 /* IBUser.swift in Sources */,
