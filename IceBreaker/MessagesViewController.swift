@@ -32,8 +32,8 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var tableView: UITableView!
     
     @IBOutlet weak var nvgitmTitle: UINavigationItem!
-    
     @IBOutlet weak var btnConnectedPeers: UIBarButtonItem!
+    @IBOutlet weak var btnBack: UIBarButtonItem!
     
     override func viewDidLoad()
     {
@@ -44,12 +44,18 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
             ibsm.delegate = self
         }
         
+        /*
+        let btnBack = UIBarButtonItem()
+        nvgitmTitle.backBarButtonItem =
+        nvgitmTitle.backBarButtonItem?.tintColor = UIColor.init(colorLiteralRed: 0.882, green: 0.882, blue: 0.882, alpha: 1.0)
+        */
+        
         print("\(self.Conversation.topic)")
     }
     
     override func viewWillAppear(animated: Bool)
     {
-        nvgitmTitle.title = "\(ibc.topic)"
+        super.viewWillAppear(true)
         
         switch ibc.topic
         {
@@ -63,7 +69,7 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
             nvgitmTitle.title = "None"
         }
         
-        tableView.reloadData()
+        refreshMessageScreen(ibsm)
     }
     
     override func viewDidAppear(animated: Bool)
@@ -103,7 +109,19 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func btnConnectedPeers_Click(sender: AnyObject)
     {
-    
+        var devices = "{ "
+        
+        for peer in ibsm.session.connectedPeers
+        {
+            devices += peer.displayName + " "
+        }
+        
+        devices += " }"
+        
+        let avc = UIAlertController(title: "Connected Devices", message: "You are connected to: " + devices, preferredStyle: .ActionSheet)
+        let dismiss = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
+        avc.addAction(dismiss)
+        presentViewController(avc, animated: true, completion: nil)
     }
     
     // number of rows in table view
@@ -174,17 +192,19 @@ extension MessagesViewController: IceBreakerServiceManagerDelegate
         print("Connected devices: \(connectedDevices)")
     }
     
-    func printMessageToScreen(manager: IceBreakerServiceManager, ibp: IBPacket)
+    func refreshMessageScreen(manager: IceBreakerServiceManager)
     {
         if NSThread.isMainThread()
         {
             self.tableView.reloadData()
+            self.tableView.setContentOffset(CGPointMake(0, CGFloat.max), animated: true)
         }
         else
         {
             dispatch_async(dispatch_get_main_queue(),
             {
                 self.tableView.reloadData()
+                self.tableView.setContentOffset(CGPointMake(0, CGFloat.max), animated: true)
             })
         }
     }

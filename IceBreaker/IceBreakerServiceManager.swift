@@ -151,7 +151,7 @@ class IceBreakerServiceManager: NSObject
         if (bPrintMessageToScreen && bSuccess)
         {
             print("sendPacket")
-            self.delegate?.printMessageToScreen(self, ibp: ibPacket)
+            self.delegate?.refreshMessageScreen(self)
         }
         
         return bSuccess
@@ -199,7 +199,7 @@ class IceBreakerServiceManager: NSObject
                 // private message is for me!
                 bForwardMessage = false
                 print("processPacket - Private")
-                self.delegate?.printMessageToScreen(self, ibp: ibp)
+                self.delegate?.refreshMessageScreen(ibsm)
             }
         case .PingQuery:
             if (ibp.recipient == myUserInfo)
@@ -212,7 +212,7 @@ class IceBreakerServiceManager: NSObject
             {
                 bForwardMessage = false
                 print("processPacket - PingResponse")
-                self.delegate?.printMessageToScreen(self, ibp: ibp)
+                self.delegate?.refreshMessageScreen(ibsm)
                 //strMessage: "Ping response from \(ibp.sender.displayName)")
             }
         case .Politics:
@@ -286,26 +286,20 @@ class IceBreakerServiceManager: NSObject
                 if (mvc.Conversation.topic == ibp.type)
                 {
                     print("processPublicMessage")
-                    self.delegate?.printMessageToScreen(self, ibp: ibp)
+                    //self.delegate?.printMessageToScreen(self, ibp: ibp)
+                    self.delegate?.refreshMessageScreen(self)
                 }
             }
         }
     }
-    
-    /*
-    func printPacket(ibp: IBPacket)
-    {
-        self.delegate?.printMessageToScreen(self, ibp: ibp)
-    }
-    */
-
 }
 
 //# MARK: IceBreakerServiceManagerDelegate Protocol
 protocol IceBreakerServiceManagerDelegate
 {
     func connectedDevicesChanged(manager: IceBreakerServiceManager, connectedDevices: [String])
-    func printMessageToScreen(manager: IceBreakerServiceManager, ibp: IBPacket)
+    //func printMessageToScreen(manager: IceBreakerServiceManager, ibp: IBPacket)
+    func refreshMessageScreen(manager: IceBreakerServiceManager)
 }
 
 //# MARK: - MCNearbyServiceAdvertiserDelegate Protocol
