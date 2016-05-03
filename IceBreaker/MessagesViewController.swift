@@ -170,6 +170,11 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
     */
 }
 
+// TODO BOTH OF THESE METHODS NEED WORK
+// MESSAGES DO NOT SHOW UP WHEN RECEIVED, TABLEVIEW DISAPPEARS
+// CONNECTED PEERS SHOWS 0 WHEN WE HAVE 1 CONNECTION
+// IBCONVERSATION CLASS CHANGES THE SENDER OF OLD MESSAGES
+
 //# MARK: - IceBreakerServiceManagerDelegate Protocol
 extension MessagesViewController: IceBreakerServiceManagerDelegate
 {
