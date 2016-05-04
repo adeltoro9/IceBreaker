@@ -293,10 +293,14 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEQ-NS-7Ie">
-                                <rect key="frame" x="279" y="480" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe left/right to change your color, and swipe up/down to change your icon" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEQ-NS-7Ie">
+                                <rect key="frame" x="150" y="480" width="300" height="39"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="39" id="Jys-8s-3rg"/>
+                                    <constraint firstAttribute="width" constant="300" id="bjm-Of-fg8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -312,8 +316,10 @@
                             <constraint firstItem="pqv-qb-yq6" firstAttribute="top" secondItem="miB-Cs-ndC" secondAttribute="bottom" constant="47" id="GbT-4D-BeU"/>
                             <constraint firstItem="pqv-qb-yq6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NGq-QW-YOX"/>
                             <constraint firstItem="iPw-Iq-5Gf" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="85" id="QMd-XK-YbP"/>
+                            <constraint firstItem="OEQ-NS-7Ie" firstAttribute="centerX" secondItem="4Ox-M0-t42" secondAttribute="centerX" id="TxV-Rf-VDu"/>
                             <constraint firstItem="pqv-qb-yq6" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="50" id="VtI-OI-o1n"/>
                             <constraint firstItem="4Ox-M0-t42" firstAttribute="top" secondItem="pqv-qb-yq6" secondAttribute="bottom" constant="48" id="cg9-PF-Rod"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="OEQ-NS-7Ie" secondAttribute="bottom" constant="32" id="efh-hJ-NP1"/>
                             <constraint firstItem="pqv-qb-yq6" firstAttribute="top" secondItem="Psc-YQ-quZ" secondAttribute="bottom" id="fyY-uy-zxE"/>
                             <constraint firstItem="miB-Cs-ndC" firstAttribute="centerY" secondItem="Psc-YQ-quZ" secondAttribute="centerY" id="lFV-dJ-wsv"/>
                             <constraint firstItem="pqv-qb-yq6" firstAttribute="top" secondItem="iPw-Iq-5Gf" secondAttribute="bottom" constant="76" id="oHG-Kg-dCm"/>

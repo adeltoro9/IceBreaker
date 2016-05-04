@@ -73,29 +73,6 @@ class IceBreakerServiceManager: NSObject
         return self.serviceBrowser
     }()
     
-    func resetConnection()
-    {
-        mySession.disconnect()
-        
-        serviceAdvertiser.stopAdvertisingPeer()
-        print("Stopped advertising.")
-        
-        if (bConnectToPeersAutomatically)
-        {
-            serviceBrowser.stopBrowsingForPeers()
-            print("Stopped browsing.")
-        }
-        
-        serviceAdvertiser.startAdvertisingPeer()
-        print("Started advertising...")
-        
-        if (bConnectToPeersAutomatically)
-        {
-            serviceBrowser.startBrowsingForPeers()
-            print("Started browsing...")
-        }
-    }
-    
     func reconnect()
     {
         serviceAdvertiser.startAdvertisingPeer()
@@ -123,6 +100,29 @@ class IceBreakerServiceManager: NSObject
         {
             serviceBrowser.stopBrowsingForPeers()
             print("Stopped browsing.")
+        }
+    }
+    
+    func resetConnection()
+    {
+        mySession.disconnect()
+        
+        serviceAdvertiser.stopAdvertisingPeer()
+        print("Stopped advertising.")
+        
+        if (bConnectToPeersAutomatically)
+        {
+            serviceBrowser.stopBrowsingForPeers()
+            print("Stopped browsing.")
+        }
+        
+        serviceAdvertiser.startAdvertisingPeer()
+        print("Started advertising...")
+        
+        if (bConnectToPeersAutomatically)
+        {
+            serviceBrowser.startBrowsingForPeers()
+            print("Started browsing...")
         }
     }
     

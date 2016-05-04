@@ -51,6 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         let fetchRequest = NSFetchRequest(entityName: "IBUser")
         
+        // FIXME: FIGURE OUT WHY APP SOMETIMES LOADS SOMEONE ELSES PROFILE AS YOUR OWN
+        
         do
         {
             let results = try self.managedObjectContext.executeFetchRequest(fetchRequest)
@@ -117,6 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Create the coordinator and store
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("SingleViewCoreData.sqlite")
+        print("CoreData Location: \(url)");
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
             try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
