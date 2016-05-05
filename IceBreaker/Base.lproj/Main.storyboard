@@ -175,10 +175,10 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Psc-YQ-quZ">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Psc-YQ-quZ">
                                 <rect key="frame" x="40" y="113" width="520" height="273"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red" translatesAutoresizingMaskIntoConstraints="NO" id="miB-Cs-ndC">
@@ -204,7 +204,7 @@
                                 </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ox-M0-t42">
-                                <rect key="frame" x="283" y="394" width="34" height="30"/>
+                                <rect key="frame" x="283" y="443" width="34" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="f83-nV-n8h"/>
                                 </constraints>
@@ -215,7 +215,7 @@
                                     <action selector="btnSave_TouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ABZ-c2-7fy"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New User" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="pqv-qb-yq6">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New User" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="pqv-qb-yq6">
                                 <rect key="frame" x="180" y="114" width="240" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="maX-le-QCq"/>
@@ -230,7 +230,7 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEQ-NS-7Ie">
-                                <rect key="frame" x="40" y="441" width="520" height="70"/>
+                                <rect key="frame" x="40" y="490" width="520" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="psc-kF-z6R"/>
                                 </constraints>
@@ -238,7 +238,7 @@
                                 <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Alligator" translatesAutoresizingMaskIntoConstraints="NO" id="iPw-Iq-5Gf">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Alligator" translatesAutoresizingMaskIntoConstraints="NO" id="iPw-Iq-5Gf">
                                 <rect key="frame" x="250" y="200" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="6gg-0x-HJk"/>
@@ -675,9 +675,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="jyi-eI-XSV" kind="show" identifier="showMessageScreen" id="3rL-ay-u7A"/>
-                        <segue destination="BYZ-38-t0r" kind="popoverPresentation" identifier="showSettingsScreen" popoverAnchorView="1nt-MO-PCb" id="Yk1-7V-A7l">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                        </segue>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="showSettingsScreen" id="Yk1-7V-A7l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SO8-hO-ulQ" sceneMemberID="firstResponder"/>
@@ -791,7 +789,7 @@
         <image name="red" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="V6a-Pj-f7j"/>
         <segue reference="Yk1-7V-A7l"/>
+        <segue reference="V6a-Pj-f7j"/>
     </inferredMetricsTieBreakers>
 </document>

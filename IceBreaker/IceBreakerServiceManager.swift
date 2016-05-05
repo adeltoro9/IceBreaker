@@ -162,6 +162,7 @@ class IceBreakerServiceManager: NSObject
         {
             do
             {
+                print("Sending to: \(session.connectedPeers)")
                     let packetData = NSKeyedArchiver.archivedDataWithRootObject(ibPacket)
                 try self.session.sendData(packetData, toPeers: session.connectedPeers, withMode: .Reliable)
             }

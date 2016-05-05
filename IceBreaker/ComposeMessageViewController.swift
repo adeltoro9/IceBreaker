@@ -42,7 +42,19 @@ class ComposeMessageViewController: UIViewController, UITextViewDelegate
     {
         if txvwNewMessage.text != ""
         {
-            let ibp = IBPacket(sender: myUserProfile.getIBUserObj(), recipient: ibc.Recipient, type: ibc.topic, message: txvwNewMessage.text, timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME)
+            var rec: IBUser?
+            if (ibc.topic == IBPacketType.Private)
+            {
+                rec = ibc.Recipient
+            }
+            else
+            {
+                rec = nil
+            }
+            
+            print("\(rec)")
+            
+            let ibp = IBPacket(sender: myUserProfile.getIBUserObj(), recipient: rec, type: ibc.topic, message: txvwNewMessage.text, timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME)
             
             if !ibsm.sendPacket(ibp, bPrintMessageToScreen: true)
             {
