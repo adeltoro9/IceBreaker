@@ -42,7 +42,7 @@ class ComposeMessageViewController: UIViewController, UITextViewDelegate
     {
         if txvwNewMessage.text != ""
         {
-            let ibp = IBPacket(sender: myUserProfile.getIBUserObj(), recipient: nil, type: ibc.topic, message: txvwNewMessage.text, timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME)
+            let ibp = IBPacket(sender: myUserProfile.getIBUserObj(), recipient: ibc.Recipient, type: ibc.topic, message: txvwNewMessage.text, timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME)
             
             if !ibsm.sendPacket(ibp, bPrintMessageToScreen: true)
             {

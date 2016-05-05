@@ -14,7 +14,9 @@ class PersonalMessagesViewController: UIViewController, UITableViewDelegate, UIT
 {
     //var personalMessages = [IBPacketType.Politics, IBPacketType.Sports, IBPacketType.MUEvents]
     
-    var selectedPersonalMessage: IBUser!
+    var selectedPersonalMessage: NSUUID!
+    
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad()
     {
@@ -30,10 +32,7 @@ class PersonalMessagesViewController: UIViewController, UITableViewDelegate, UIT
     
     override func viewWillAppear(animated: Bool)
     {
-        if (myUserProfile == nil)
-        {
-            performSegueWithIdentifier("showSettingsScreen", sender: self)
-        }
+        self.tableView.reloadData()
         
         super.viewWillAppear(true)
     }
@@ -90,7 +89,7 @@ class PersonalMessagesViewController: UIViewController, UITableViewDelegate, UIT
         }
         else
         {
-            self.selectedPersonalMessage = ibsm.recentUsers[indexPath.row]
+            self.selectedPersonalMessage = ibsm.recentUsers[indexPath.row].uuid
         }
         
         self.performSegueWithIdentifier("showMessageScreen", sender: self)
@@ -104,10 +103,10 @@ class PersonalMessagesViewController: UIViewController, UITableViewDelegate, UIT
         }
         else
         {
-            ibsm.privateConversations[selectedPersonalMessage] = IBConversation(topic: .Private)
+            ibsm.privateConversations[selectedPersonalMessage] = IBConversation(topic: .Private, recipient: ibsm.getIBUserFromUUID(selectedPersonalMessage))
             (segue.destinationViewController as! MessagesViewController).Conversation = ibsm.privateConversations[selectedPersonalMessage]
         }
         
-        (segue.destinationViewController as! MessagesViewController).nvgitmTitle.title = selectedPersonalMessage.username
+        (segue.destinationViewController as! MessagesViewController).nvgitmTitle.title = ibsm.getIBUserFromUUID(selectedPersonalMessage)!.username
     }
 }

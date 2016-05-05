@@ -216,6 +216,10 @@ extension MessagesViewController: IceBreakerServiceManagerDelegate
                 self.tableView.reloadRowsAtIndexPaths(reloadIndexPaths, withRowAnimation: .Fade)
             }
             
+            if (ibc.topic == IBPacketType.Private)
+            {
+                self.nvgitmTitle.title = ibc.Recipient!.username
+            }
             // TODO figure out how to scroll tableview to bottom without messing stuff up
             //self.tableView.reloadData()
             //self.tableView.setContentOffset(CGPointMake(0, CGFloat.max), animated: true)
@@ -235,6 +239,11 @@ extension MessagesViewController: IceBreakerServiceManagerDelegate
                 {
                     reloadIndexPaths.append(NSIndexPath(forRow: 0, inSection: 0))
                     self.tableView.reloadRowsAtIndexPaths(reloadIndexPaths, withRowAnimation: .Fade)
+                }
+                
+                if (self.ibc.topic == IBPacketType.Private)
+                {
+                    self.nvgitmTitle.title = self.ibc.Recipient!.username
                 }
             })
         }

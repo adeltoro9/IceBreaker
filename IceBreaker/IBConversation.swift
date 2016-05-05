@@ -20,31 +20,37 @@ class IBConversation: NSObject
         }
     }
     
-    private var people: [IBUser]
-    var People: [IBUser]
+    private var recipient: IBUser?
+    var Recipient: IBUser?
     {
         get
         {
-            return people
+            return recipient
+        }
+        set
+        {
+            recipient = newValue
         }
     }
     
     let topic: IBPacketType
     
-    init(topic: IBPacketType)
+    init(topic: IBPacketType, recipient: IBUser?)
     {
         self.messages = [IBPacket]()
-        self.people = [IBUser]()
         self.topic = topic
+        if let rec = recipient
+        {
+            if self.topic == IBPacketType.Private
+            {
+                self.recipient = rec
+            }
+        }
+        
     }
     
     func addNewMessage(newMessage: IBPacket)
     {
         messages.append(newMessage)
-        
-        if (!people.contains(newMessage.sender))
-        {
-            people.append(newMessage.sender)
-        }
     }
 }

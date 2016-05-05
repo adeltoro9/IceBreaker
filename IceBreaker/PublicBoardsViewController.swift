@@ -115,7 +115,7 @@ class PublicBoardsViewController: UIViewController, UITableViewDelegate, UITable
             }
             else
             {
-                ibsm.publicConversations[selectedPublicBoard] = IBConversation(topic: selectedPublicBoard)
+                ibsm.publicConversations[selectedPublicBoard] = IBConversation(topic: selectedPublicBoard, recipient: nil)
                 (segue.destinationViewController as! MessagesViewController).Conversation = ibsm.publicConversations[selectedPublicBoard]
             }
         }

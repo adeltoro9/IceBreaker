@@ -670,7 +670,9 @@
                             <constraint firstItem="y0K-Ll-rxz" firstAttribute="top" secondItem="1nt-MO-PCb" secondAttribute="bottom" id="xCn-kX-8qK"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Public Boards" id="a2R-IP-NMs"/>
+                    <navigationItem key="navigationItem" title="Public Boards" id="a2R-IP-NMs">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="0BJ-Up-yhm"/>
+                    </navigationItem>
                     <connections>
                         <segue destination="jyi-eI-XSV" kind="show" identifier="showMessageScreen" id="3rL-ay-u7A"/>
                         <segue destination="BYZ-38-t0r" kind="popoverPresentation" identifier="showSettingsScreen" popoverAnchorView="1nt-MO-PCb" id="Yk1-7V-A7l">
@@ -766,6 +768,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Personal Messages" id="j4E-SM-kCh"/>
                     <connections>
+                        <outlet property="tableView" destination="mQd-of-99p" id="LcR-Bz-cmX"/>
                         <segue destination="jyi-eI-XSV" kind="show" identifier="showMessageScreen" id="V6a-Pj-f7j"/>
                     </connections>
                 </viewController>
@@ -789,6 +792,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="V6a-Pj-f7j"/>
-        <segue reference="h0f-CD-ySX"/>
+        <segue reference="Yk1-7V-A7l"/>
     </inferredMetricsTieBreakers>
 </document>

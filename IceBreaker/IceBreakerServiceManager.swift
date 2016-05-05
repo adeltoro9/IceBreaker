@@ -16,7 +16,7 @@ class IceBreakerServiceManager: NSObject
     var recentUsers: [IBUser] = [IBUser]()
     
     var publicConversations: [IBPacketType : IBConversation]! = [IBPacketType : IBConversation]()
-    var privateConversations: [IBUser : IBConversation]! = [IBUser : IBConversation]()
+    var privateConversations: [NSUUID : IBConversation]! = [NSUUID : IBConversation]()
     
     private let serviceAdvertiser : MCNearbyServiceAdvertiser
     private let serviceBrowser : MCNearbyServiceBrowser
@@ -140,6 +140,19 @@ class IceBreakerServiceManager: NSObject
         return nil
     }
     
+    func getIBUserFromUUID(uuid: NSUUID) -> IBUser?
+    {
+        for usr in recentUsers
+        {
+            if (usr.uuid == uuid)
+            {
+                return usr
+            }
+        }
+        
+        return nil
+    }
+    
 //# MARK: Packet Processing Methods
     func sendPacket(ibPacket: IBPacket, bPrintMessageToScreen: Bool) -> Bool
     {
@@ -233,9 +246,22 @@ class IceBreakerServiceManager: NSObject
                 // private message is for me!
                 bForwardMessage = false
                 print("processPacket - Private")
-                if let conv = privateConversations[ibp.sender]
+                if let conv = privateConversations[ibp.sender.uuid]
                 {
+                    if (conv.Recipient != ibp.sender)
+                    {
+                        print("updating recipient info.")
+                        let index = recentUsers.indexOf(conv.Recipient!)!
+                        recentUsers.removeAtIndex(index)
+                        conv.Recipient = ibp.sender
+                        recentUsers.insert(conv.Recipient!, atIndex: index)
+                    }
                     conv.addNewMessage(ibp)
+                }
+                else
+                {
+                    privateConversations[ibp.sender.uuid] = IBConversation(topic: .Private, recipient: ibp.sender)
+                    privateConversations[ibp.sender.uuid]!.addNewMessage(ibp)
                 }
                 self.delegate?.refreshMessageScreen(ibsm)
             }
