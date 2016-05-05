@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PublicBoardsCell : UITableViewCell
+class ChatRoomsCell : UITableViewCell
 {
     @IBOutlet weak var imageBackground: UIImageView!
     @IBOutlet weak var imageIcon: UIImageView!

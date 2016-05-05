@@ -13,9 +13,10 @@ import NotificationCenter
 class IceBreakerServiceManager: NSObject
 {
     var recentPackets: [IBPacket] = [IBPacket]()
+    var recentUsers: [IBUser] = [IBUser]()
     
     var publicConversations: [IBPacketType : IBConversation]! = [IBPacketType : IBConversation]()
-    var privateConversations: [MCPeerID : IBConversation]! = [MCPeerID : IBConversation]()
+    var privateConversations: [IBUser : IBConversation]! = [IBUser : IBConversation]()
     
     private let serviceAdvertiser : MCNearbyServiceAdvertiser
     private let serviceBrowser : MCNearbyServiceBrowser
@@ -126,6 +127,19 @@ class IceBreakerServiceManager: NSObject
         }
     }
     
+    func getIBUserFromUsername(username: String) -> IBUser?
+    {
+        for usr in recentUsers
+        {
+            if (usr.username == username)
+            {
+                return usr
+            }
+        }
+        
+        return nil
+    }
+    
 //# MARK: Packet Processing Methods
     func sendPacket(ibPacket: IBPacket, bPrintMessageToScreen: Bool) -> Bool
     {
@@ -157,7 +171,7 @@ class IceBreakerServiceManager: NSObject
         return bSuccess
     }
     
-    func checkForPacketAndCleanUp(ibp: IBPacket) -> Bool
+    func checkForPacketAndSender(ibp: IBPacket) -> Bool
     {
         var i: Int = 0
         
@@ -178,12 +192,32 @@ class IceBreakerServiceManager: NSObject
 
         recentPackets.append(ibp)
         
+        i = 0
+        
+        var bAddSender = true
+        
+        while i < recentUsers.count
+        {
+            if (ibp.sender.uuid == recentUsers[i].uuid)
+            {
+                bAddSender = false
+                break
+            }
+        }
+        
+        if (bAddSender)
+        {
+            recentUsers.append(ibp.sender)
+        }
+        
+        print("recentUsers: \(recentUsers.count)")
+        
         return false
     }
     
     func processPacket(ibp: IBPacket)
     {
-        if (checkForPacketAndCleanUp(ibp))
+        if (checkForPacketAndSender(ibp))
         {
             // packet was found and so we have already processed it
             return
@@ -199,6 +233,10 @@ class IceBreakerServiceManager: NSObject
                 // private message is for me!
                 bForwardMessage = false
                 print("processPacket - Private")
+                if let conv = privateConversations[ibp.sender]
+                {
+                    conv.addNewMessage(ibp)
+                }
                 self.delegate?.refreshMessageScreen(ibsm)
             }
         case .PingQuery:

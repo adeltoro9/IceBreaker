@@ -58,7 +58,7 @@ class PublicBoardsViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("PublicBoardsCell", forIndexPath: indexPath) as! PublicBoardsCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("ChatRoomsCell", forIndexPath: indexPath) as! ChatRoomsCell
         
         switch publicBoards[indexPath.row]
         {
@@ -83,7 +83,7 @@ class PublicBoardsViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as! PublicBoardsCell
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! ChatRoomsCell
         cell.setSelected(false, animated: false)
         
         switch cell.chatroomLabel.text!

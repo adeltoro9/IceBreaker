@@ -52,6 +52,8 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
         
         switch ibc.topic
         {
+        case .Private: break
+            // do nothing title has already been set in prepateForSegue()
         case .Politics:
             nvgitmTitle.title = "Politics"
         case .Sports:
@@ -152,7 +154,7 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
         }
         else
         {
-            cell.txvwMessageText.text = "IceBreaker: Break the ice!"
+            cell.txvwMessageText.text = "IceBreaker: Say something to break the ice!"
             cell.imgUserLogo.image = UIImage(named: "29")
             cell.imgBackgroundColor.image = nil
         }
