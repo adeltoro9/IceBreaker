@@ -62,6 +62,7 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
             nvgitmTitle.title = "None"
         }
         
+        self.btnConnectedPeers.title = "\(ibsm.session.connectedPeers.count)"
         refreshMessageScreen(ibsm)
     }
     

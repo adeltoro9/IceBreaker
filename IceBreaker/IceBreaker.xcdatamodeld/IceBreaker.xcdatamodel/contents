@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Automatic">
-    <entity name="Entity1" syncable="YES"/>
-    <entity name="IBUser" representedClassName=".IBUser" syncable="YES">
+    <entity name="IBUserProfile" representedClassName=".IBUserProfile" syncable="YES">
         <attribute name="animalIcon" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="backgroundColor" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="IBUser" positionX="-63" positionY="-18" width="128" height="90"/>
-        <element name="Entity1" positionX="-54" positionY="0" width="128" height="45"/>
+        <element name="IBUserProfile" positionX="-54" positionY="-9" width="128" height="105"/>
     </elements>
 </model>

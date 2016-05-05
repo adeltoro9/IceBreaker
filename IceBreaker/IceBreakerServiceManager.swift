@@ -27,9 +27,9 @@ class IceBreakerServiceManager: NSObject
     
     init(connectToPeersAutomatically: Bool)
     {
-        serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myUserInfo.peerID, discoveryInfo: nil, serviceType: IceBreakerServiceType)
-        serviceBrowser = MCNearbyServiceBrowser(peer: myUserInfo.peerID, serviceType: IceBreakerServiceType)
-        mySession = MCSession(peer: myUserInfo.peerID, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.Required)
+        serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myUserProfile.peerID, discoveryInfo: nil, serviceType: IceBreakerServiceType)
+        serviceBrowser = MCNearbyServiceBrowser(peer: myUserProfile.peerID, serviceType: IceBreakerServiceType)
+        mySession = MCSession(peer: myUserProfile.peerID, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.Required)
         
         bConnectToPeersAutomatically = connectToPeersAutomatically
         
@@ -194,7 +194,7 @@ class IceBreakerServiceManager: NSObject
         switch ibp.type
         {
         case .Private:
-            if (ibp.recipient == myUserInfo)
+            if (ibp.recipient?.uuid == myUserProfile.myUUID)
             {
                 // private message is for me!
                 bForwardMessage = false
@@ -202,13 +202,13 @@ class IceBreakerServiceManager: NSObject
                 self.delegate?.refreshMessageScreen(ibsm)
             }
         case .PingQuery:
-            if (ibp.recipient == myUserInfo)
+            if (ibp.recipient?.uuid == myUserProfile.myUUID)
             {
                 bForwardMessage = false
-                sendPacket(IBPacket(sender: myUserInfo, recipient: ibp.sender, type: IBPacketType.PingResponse, message: "I'm here!", timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME), bPrintMessageToScreen: false)
+                sendPacket(IBPacket(sender: myUserProfile.getIBUserObj(), recipient: ibp.sender, type: IBPacketType.PingResponse, message: "I'm here!", timeStamp: NSDate(), lifeTime: DEFAULT_LIFETIME), bPrintMessageToScreen: false)
             }
         case .PingResponse:
-            if (ibp.recipient == myUserInfo)
+            if (ibp.recipient?.uuid == myUserProfile.myUUID)
             {
                 bForwardMessage = false
                 print("processPacket - PingResponse")
@@ -232,7 +232,7 @@ class IceBreakerServiceManager: NSObject
         {
             if(!forwardPacket(ibp))
             {
-                let avc = UIAlertController(title: "Could not forward packet", message: "A packet \(ibp.uniqueID) that was received from \(ibp.sender.peerID.displayName) could not be forwarded.", preferredStyle: .Alert)
+                let avc = UIAlertController(title: "Could not forward packet", message: "A packet \(ibp.uniqueID) that was received from \(ibp.sender.username) (\(ibp.sender.uuid)) could not be forwarded.", preferredStyle: .Alert)
                 let dismiss = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
                 avc.addAction(dismiss)
                 UIApplication.topViewController()!.presentViewController(avc, animated: true, completion: nil)

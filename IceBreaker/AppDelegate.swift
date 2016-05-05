@@ -31,8 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
         
-        ibsm.delegate = nil
-        ibsm.disconnect()
+        if (ibsm != nil)
+        {
+            ibsm.delegate = nil
+            ibsm.disconnect()
+        }
     }
 
     func applicationDidEnterBackground(application: UIApplication)
@@ -49,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(application: UIApplication)
     {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        let fetchRequest = NSFetchRequest(entityName: "IBUser")
+        let fetchRequest = NSFetchRequest(entityName: "IBUserProfile")
         
         // FIXME: FIGURE OUT WHY APP SOMETIMES LOADS SOMEONE ELSES PROFILE AS YOUR OWN
         
@@ -58,8 +61,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let results = try self.managedObjectContext.executeFetchRequest(fetchRequest)
             if (results.count > 0)
             {
-                myUserInfo = results[0] as! IBUser
-                myUserInfo.peerID = MCPeerID(displayName: myUserInfo.username)
+                if let userProfile = results[0] as? IBUserProfile
+                {
+                    myUserProfile = userProfile
+                    print(myUserProfile.peerID.displayName)
+                    myUserProfile.peerID = MCPeerID(displayName: myUserProfile.username)
+                    print(myUserProfile.peerID.displayName)
+                }
+                else
+                {
+                    abort()
+                }
                 /*
                 print((results[0] as! IBUser).username)
                 print((results[0] as! IBUser).animalIcon)
@@ -71,8 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             else
             {
-                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                myUserInfo = IBUser(username: UIDevice.currentDevice().name, animalIcon: "Alligator", backgroundColor: "red", entity: NSEntityDescription.entityForName("IBUser", inManagedObjectContext: appDelegate.managedObjectContext)!, insertIntoManagedObjectContext: appDelegate.managedObjectContext)
+                myUserProfile = nil
             }
         }
         catch let error as NSError
@@ -80,23 +91,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Could not fetch \(error), \(error.userInfo)")
         }
         
-        if (ibsm == nil)
+        if (myUserProfile != nil)
         {
-            ibsm = IceBreakerServiceManager(connectToPeersAutomatically: true)
+            if (ibsm == nil)
+            {
+                ibsm = IceBreakerServiceManager(connectToPeersAutomatically: true)
+            }
+            else
+            {
+                ibsm.reconnect()
+            }
+            ibsm.delegate = MessagesScreen
         }
-        else
-        {
-            ibsm.reconnect()
-        }
-        ibsm.delegate = MessagesScreen
     }
 
     func applicationWillTerminate(application: UIApplication)
     {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
-        ibsm.delegate = nil
-        ibsm = nil
+        if (ibsm != nil)
+        {
+            ibsm.delegate = nil
+            ibsm = nil
+        }
         self.saveContext()
     }
 

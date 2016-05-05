@@ -19,16 +19,29 @@ class SettingsViewController: UIViewController
     var animalIndex: Int = 0
     var backgroundIndex: Int = 0
     
+    var bPresentedAsPopover: Bool = false
+    
     @IBOutlet weak var imgvwBackground: UIImageView!
     @IBOutlet weak var imgvwAnimalIcon: UIImageView!
     @IBOutlet weak var txfldUserInput: UITextField!
+    @IBOutlet weak var lbHelpLabel: UILabel!
     
     override func viewWillAppear(animated: Bool)
     {
-        txfldUserInput.text = myUserInfo.username
-        animalIndex = animals.indexOf(myUserInfo.animalIcon)!
+        if (bPresentedAsPopover)
+        {
+            lbHelpLabel.text = "Please create  a user profile.\n\nSwipe left/right to change colors and,\nswipe up/down to change icons."
+            return
+        }
+        else
+        {
+            lbHelpLabel.text = "Swipe left/right to change colors and,\nswipe up/down to change icons."
+        }
+        
+        txfldUserInput.text = myUserProfile.username
+        animalIndex = animals.indexOf(myUserProfile.animalIcon)!
         imgvwAnimalIcon.image = UIImage(named: self.animals[self.animalIndex])
-        backgroundIndex = backgrounds.indexOf(myUserInfo.backgroundColor)!
+        backgroundIndex = backgrounds.indexOf(myUserProfile.backgroundColor)!
         imgvwBackground.image = UIImage(named: self.backgrounds[self.backgroundIndex])
     }
     
@@ -122,9 +135,7 @@ class SettingsViewController: UIViewController
     {
         return true
     }
-    
-    
-    // TODO ADD AVC FOR EACH CASE
+
     @IBAction func btnSave_TouchUpInside(sender: AnyObject)
     {
         if let newUsername = txfldUserInput.text
@@ -140,15 +151,37 @@ class SettingsViewController: UIViewController
             {
                 do
                 {
-                    myUserInfo.username = newUsername
-                    myUserInfo.animalIcon = animals[animalIndex]
-                    myUserInfo.backgroundColor = backgrounds[backgroundIndex]
-                    myUserInfo.peerID = MCPeerID(displayName: myUserInfo.username)
-                    try myUserInfo.managedObjectContext!.save()
-                    let avc = UIAlertController(title: "User Profile Saved", message: "Your new user profile was saved successfully!", preferredStyle: .Alert)
-                    let dismiss = UIAlertAction(title: "OK", style: .Default, handler: nil)
-                    avc.addAction(dismiss)
-                    self.presentViewController(avc, animated: true, completion: nil)
+                    if (bPresentedAsPopover)
+                    {
+                        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                        
+                        if let userProfile = IBUserProfile.createInManagedObjectContext(appDelegate.managedObjectContext, uuid: nil, username: newUsername, animalIcon: animals[animalIndex], backgroundColor: backgrounds[backgroundIndex], friendList: nil, blockList: nil)
+                            //IBUserProfile(uuid: nil, username: newUsername, animalIcon: animals[animalIndex], backgroundColor: backgrounds[backgroundIndex], friendList: nil, blockList: nil, entity: NSEntityDescription.entityForName("IBUserProfile", inManagedObjectContext: appDelegate.managedObjectContext)!, insertIntoManagedObjectContext: appDelegate.managedObjectContext)
+                        {
+                            myUserProfile = userProfile
+                        }
+                        else
+                        {
+                            abort()
+                        }
+                        try myUserProfile.managedObjectContext!.save()
+                        ibsm = IceBreakerServiceManager(connectToPeersAutomatically: true)
+                        ibsm.delegate = MessagesScreen
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }
+                    else
+                    {
+                        myUserProfile.username = newUsername
+                        myUserProfile.animalIcon = animals[animalIndex]
+                        myUserProfile.backgroundColor = backgrounds[backgroundIndex]
+                        myUserProfile.peerID = MCPeerID(displayName: myUserProfile.username)
+                        try myUserProfile.managedObjectContext!.save()
+                        let avc = UIAlertController(title: "User Profile Saved", message: "Your new user profile was saved successfully!", preferredStyle: .Alert)
+                        let dismiss = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                        avc.addAction(dismiss)
+                        self.presentViewController(avc, animated: true, completion: nil)
+                    }
+                    
                 }
                 catch let error as NSError
                 {

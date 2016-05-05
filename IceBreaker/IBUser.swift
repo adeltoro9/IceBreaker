@@ -10,77 +10,44 @@ import CoreData
 import Foundation
 import MultipeerConnectivity
 
-protocol User
+class IBUser: NSObject, NSCoding
 {
-    var username: String {get}
-    var animalIcon: String {get}
-    var backgroundColor: String {get}
-    var peerID: MCPeerID {get}
-}
-
-class IBUser: NSManagedObject, NSCoding, User
-{
-    @NSManaged dynamic var username: String
-    @NSManaged dynamic var animalIcon: String
-    @NSManaged dynamic var backgroundColor: String
-    var peerID: MCPeerID = MCPeerID(displayName: UIDevice.currentDevice().name)
+    var uuid: NSUUID!
+    var peerID: MCPeerID!
+    var username: String!
+    var animalIcon: String!
+    var backgroundColor: String!
     
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?)
+    convenience init(uuid: NSUUID, username: String, animalIcon: String, backgroundColor:String)
     {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        super.init(entity: NSEntityDescription.entityForName("IBUser", inManagedObjectContext: appDelegate.managedObjectContext)!, insertIntoManagedObjectContext: appDelegate.managedObjectContext)
-    }
-    
-    convenience init(username: String, animalIcon: String, backgroundColor:String, entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?)
-    {
-        self.init(entity: entity, insertIntoManagedObjectContext: context)
-
+        self.init()
+        
+        self.uuid = uuid
         self.username = username
-        self.animalIcon = animalIcon
-        self.backgroundColor = backgroundColor
         self.peerID = MCPeerID(displayName: self.username)
-    }
-    
-    /*
-    convenience init(username: String, animalIcon: String, backgroundColor:String, entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext!)
-    {
-        self.init(username: username, animalIcon: animalIcon, backgroundColor: backgroundColor, entity: entity, insertIntoManagedObjectContext: context)
-        self.username = username
         self.animalIcon = animalIcon
         self.backgroundColor = backgroundColor
-        self.peerID = MCPeerID(displayName: username)
     }
-    */
     
     required convenience init?(coder aDecoder: NSCoder)
     {
+        self.init()
         
-        let context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-        //super.init(entity: NSEntityDescription.entityForName("IBUser", inManagedObjectContext: appDelegate.managedObjectContext)!, insertIntoManagedObjectContext: appDelegate.managedObjectContext)
-        
-        self.init(entity: NSEntityDescription.entityForName("IBUser", inManagedObjectContext: context)!, insertIntoManagedObjectContext: context)
+        self.uuid = aDecoder.decodeObjectForKey("uuid") as! NSUUID
         self.username = aDecoder.decodeObjectForKey("username") as! String
+        self.peerID = MCPeerID(displayName: self.username)
         self.animalIcon = aDecoder.decodeObjectForKey("animalIcon") as! String
         self.backgroundColor = aDecoder.decodeObjectForKey("backgroundColor") as! String
-        self.peerID = MCPeerID(displayName: self.username)
     }
     
     func encodeWithCoder(aCoder: NSCoder)
     {
+        aCoder.encodeObject(self.uuid, forKey: "uuid")
         aCoder.encodeObject(self.username, forKey: "username")
         aCoder.encodeObject(self.animalIcon, forKey: "animalIcon")
         aCoder.encodeObject(self.backgroundColor, forKey: "backgroundColor")
     }
-    
-    class func createInManagedObjectContext(moc: NSManagedObjectContext, username: String, animalIcon: String, backgroundColor:String) -> IBUser
-    {
-        let newUser = NSEntityDescription.insertNewObjectForEntityForName("IBUser", inManagedObjectContext: moc) as! IBUser
-        newUser.username = username
-        newUser.animalIcon = animalIcon
-        newUser.backgroundColor = backgroundColor
-        newUser.peerID = MCPeerID(displayName: newUser.username)
-        return newUser
-    }
+
 }
 
 

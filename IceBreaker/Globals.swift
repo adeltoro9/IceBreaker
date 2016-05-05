@@ -19,20 +19,20 @@ var ibsm: IceBreakerServiceManager!
 
 let DEFAULT_LIFETIME = 10
 
-var myUserInfo: IBUser
+var myUserProfile: IBUserProfile!
 {
     get
     {
-        return _myUserInfo
+        return _myUserProfile
     }
     
     set
     {
-        _myUserInfo = newValue
+        _myUserProfile = newValue
     }
 }
 
-private var _myUserInfo: IBUser! //= IBUser(username: UIDevice.currentDevice().name, animalIcon: "Bull", backgroundColor: "red", entity: NSEntityDescription.entityForName("IBUser", inManagedObjectContext: (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext)!, insertIntoManagedObjectContext: (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext)
+private var _myUserProfile: IBUserProfile! //= IBUser(username: UIDevice.currentDevice().name, animalIcon: "Bull", backgroundColor: "red", entity: NSEntityDescription.entityForName("IBUser", inManagedObjectContext: (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext)!, insertIntoManagedObjectContext: (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext)
 
 var _messagesScreen: IceBreakerServiceManagerDelegate! = nil
 

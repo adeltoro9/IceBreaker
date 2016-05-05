@@ -35,6 +35,16 @@ class PublicBoardsViewController: UIViewController, UITableViewDelegate, UITable
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewWillAppear(animated: Bool)
+    {
+        if (myUserProfile == nil)
+        {
+            performSegueWithIdentifier("showSettingsScreen", sender: self)
+        }
+        
+        super.viewWillAppear(true)
+    }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
@@ -108,6 +118,10 @@ class PublicBoardsViewController: UIViewController, UITableViewDelegate, UITable
                 ibsm.publicConversations[selectedPublicBoard] = IBConversation(topic: selectedPublicBoard)
                 (segue.destinationViewController as! MessagesViewController).Conversation = ibsm.publicConversations[selectedPublicBoard]
             }
+        }
+        else if (segue.identifier == "showSettingsScreen")
+        {
+            (segue.destinationViewController as! SettingsViewController).bPresentedAsPopover = true
         }
     }
 }
